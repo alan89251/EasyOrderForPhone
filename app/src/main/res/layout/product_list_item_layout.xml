@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TableLayout
+        android:id="@+id/product_list_item_table"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <TableRow>
+            <TextView
+                style="@style/product_list_item_title_style"
+                android:text="@string/product_info_title_phone_model" />
+
+            <TextView
+                android:id="@+id/product_list_item_phone_model"
+                style="@style/product_list_item_style" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                style="@style/product_list_item_title_style"
+                android:text="@string/product_info_title_product_id" />
+
+            <TextView
+                android:id="@+id/product_list_item_product_id"
+                style="@style/product_list_item_style" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                style="@style/product_list_item_title_style"
+                android:text="@string/product_info_title_phone_make" />
+
+            <TextView
+                android:id="@+id/product_list_item_phone_make"
+                style="@style/product_list_item_style" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                style="@style/product_list_item_title_style"
+                android:text="@string/product_info_title_phone_color" />
+
+            <TextView
+                android:id="@+id/product_list_item_phone_color"
+                style="@style/product_list_item_style" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                style="@style/product_list_item_title_style"
+                android:text="@string/product_info_title_storage_capacity" />
+
+            <TextView
+                android:id="@+id/product_list_item_storage_capacity"
+                style="@style/product_list_item_style" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                style="@style/product_list_item_title_style"
+                android:text="@string/product_info_title_price" />
+
+            <TextView
+                android:id="@+id/product_list_item_price"
+                style="@style/product_list_item_style" />
+        </TableRow>
+    </TableLayout>
+
+    <ImageView
+        android:id="@+id/product_list_item_photo"
+        style="@style/product_list_item_photo_style"
+        android:layout_toRightOf="@id/product_list_item_table" />
+</RelativeLayout>
