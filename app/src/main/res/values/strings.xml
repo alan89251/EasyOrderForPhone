@@ -31,7 +31,7 @@
     <string name="product_info_title_storage_capacity">Storage capacity:</string>
     <string name="product_info_title_price">Price:</string>
     <string name="order_form_title_order_date">Order date:</string>
-    <string name="submit_order_btn_text">Submit</string>
+    <string name="move_to_shop_choosing_btn_text">Next to choose a shop</string>
     <string name="order_list_description">Orders</string>
     <string name="order_list_item_title_order_id">Order id:</string>
     <string name="order_list_item_title_customer_id">Customer id:</string>
@@ -44,6 +44,10 @@
     <string name="order_status_text_ordered">Ordered</string>
     <string name="order_status_text_cancelled">Cancelled</string>
     <string name="order_status_text_delivered">Delivered</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="google_place_search_api_url">https://maps.googleapis.com/maps/api/place/textsearch/json</string>
+    <string name="google_place_detail_api_url">https://maps.googleapis.com/maps/api/place/details/json</string>
+    <string name="google_place_photo_api_url">https://maps.googleapis.com/maps/api/place/photo</string>
+    <string name="switch_to_standard_text">Standard</string>
+    <string name="switch_to_satellite_text">Satellite</string>
+    <string name="switch_to_hybrid_text">Hybrid</string>
 </resources>

@@ -83,8 +83,8 @@
         android:hint="dd/MM/yyyy"/>
 
     <Button
-        android:id="@+id/submit_order_btn"
-        style="@style/submit_order_btn_style"
-        android:text="@string/submit_order_btn_text" />
+        android:id="@+id/move_to_shop_choosing_btn"
+        style="@style/move_to_shop_choosing_btn_style"
+        android:text="@string/move_to_shop_choosing_btn_text" />
 
 </LinearLayout>

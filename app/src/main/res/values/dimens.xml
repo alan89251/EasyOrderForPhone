@@ -28,7 +28,7 @@
     <dimen name="order_form_title_order_date_textSize">28sp</dimen>
     <dimen name="order_form_input_order_date_width">150dp</dimen>
     <dimen name="order_form_input_order_date_textSize">24sp</dimen>
-    <dimen name="submit_order_btn_textSize">28sp</dimen>
+    <dimen name="move_to_shop_choosing_btn_textSize">28sp</dimen>
     <dimen name="order_list_description_textSize">24sp</dimen>
     <dimen name="order_list_description_marginTop">10dp</dimen>
     <dimen name="order_list_item_title_textSize">20sp</dimen>
@@ -42,4 +42,10 @@
     <dimen name="product_list_item_photo_height">160dp</dimen>
     <dimen name="product_list_item_photo_marginLeft">10dp</dimen>
     <dimen name="product_list_item_width">110dp</dimen>
+    <dimen name="infoWindowStorePhotoMarginBottom">10dp</dimen>
+    <dimen name="infoWindowStoreDetailMarginLeft">10dp</dimen>
+    <dimen name="infoWindowStoreDetailTextSize">18sp</dimen>
+    <dimen name="btnBarSwitchMapTypeMarginTop">20dp</dimen>
+    <dimen name="btnSwitchMapTypeMarginHorizontal">5dp</dimen>
+    <dimen name="btnSwitchMapTypeTextSize">16sp</dimen>
 </resources>

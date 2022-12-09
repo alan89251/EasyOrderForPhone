@@ -211,13 +211,13 @@
         <item name="android:textSize">@dimen/order_form_input_order_date_textSize</item>
     </style>
 
-    <style name="submit_order_btn_style">
+    <style name="move_to_shop_choosing_btn_style">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_gravity">center_horizontal</item>
-        <item name="android:textColor">@color/submit_order_btn_textColor</item>
-        <item name="android:textSize">@dimen/submit_order_btn_textSize</item>
-        <item name="android:backgroundTint">@color/submit_order_btn_BgColor</item>
+        <item name="android:textColor">@color/move_to_shop_choosing_btn_text_color</item>
+        <item name="android:textSize">@dimen/move_to_shop_choosing_btn_textSize</item>
+        <item name="android:backgroundTint">@color/move_to_shop_choosing_btn_bg_color</item>
     </style>
 
     <style name="order_list_description_style">
@@ -291,5 +291,39 @@
         <item name="android:layout_marginLeft">@dimen/product_list_item_photo_marginLeft</item>
         <item name="android:scaleType">fitCenter</item>
         <item name="android:background">@color/product_list_item_photo_bgColor</item>
+    </style>
+
+    <style name="info_window_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="info_window_store_photo_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">@dimen/infoWindowStorePhotoMarginBottom</item>
+    </style>
+
+    <style name="info_window_store_detail_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/infoWindowStoreDetailMarginLeft</item>
+        <item name="android:textSize">@dimen/infoWindowStoreDetailTextSize</item>
+    </style>
+
+    <style name="btn_bar_switch_map_type_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/btnBarSwitchMapTypeMarginTop</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_centerHorizontal">true</item>
+    </style>
+
+    <style name="btn_switch_map_type_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/btnSwitchMapTypeTextSize</item>
+        <item name="android:layout_marginHorizontal">@dimen/btnSwitchMapTypeMarginHorizontal</item>
     </style>
 </resources>

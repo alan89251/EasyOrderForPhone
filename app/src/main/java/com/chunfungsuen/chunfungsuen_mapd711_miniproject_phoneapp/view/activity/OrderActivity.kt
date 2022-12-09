@@ -134,7 +134,7 @@ class OrderActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.order_form_storage_capacity).text = selectedProduct.StorageCapacity
         findViewById<TextView>(R.id.order_form_price).text = "$" + selectedProduct.Price.toString()
 
-        findViewById<Button>(R.id.submit_order_btn).setOnClickListener {
+        findViewById<Button>(R.id.move_to_shop_choosing_btn).setOnClickListener {
             val orderDateStr = findViewById<EditText>(R.id.order_form_order_date).text.toString()
             // validation
             // use LocalDate to parse the string. If it throws exception, mean the date format is invalid
@@ -165,7 +165,7 @@ class OrderActivity : AppCompatActivity() {
                 orderViewModel.insertOrder(order)
 
                 // Navigate to update order activity
-                val intent = Intent(this@OrderActivity, UpdateOrderActivity::class.java)
+                val intent = Intent(this@OrderActivity, MapsActivity::class.java)
                 startActivity(intent)
             })
         }

@@ -1,9 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:map="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/map"
-    android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.activity.MapsActivity" />
+    tools:context=".view.activity.MapsActivity">
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:map="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.activity.MapsActivity" />
+
+    <RelativeLayout
+        style="@style/btn_bar_switch_map_type_style">
+        <Button
+            android:id="@+id/btn_switch_to_standard"
+            style="@style/btn_switch_map_type_style"
+            android:text="@string/switch_to_standard_text"
+            android:onClick="onClickBtnSwitchToStandard" />
+
+        <Button
+            android:id="@+id/btn_switch_to_satellite"
+            style="@style/btn_switch_map_type_style"
+            android:layout_toRightOf="@id/btn_switch_to_standard"
+            android:text="@string/switch_to_satellite_text"
+            android:onClick="onClickBtnSwitchToSatellite" />
+
+        <Button
+            android:id="@+id/btn_switch_to_Hybrid"
+            style="@style/btn_switch_map_type_style"
+            android:layout_toRightOf="@id/btn_switch_to_satellite"
+            android:text="@string/switch_to_hybrid_text"
+            android:onClick="onClickBtnSwitchToHybrid" />
+    </RelativeLayout>
+</RelativeLayout>

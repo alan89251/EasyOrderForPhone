@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/info_window_style" >
+
+    <ImageView
+        android:id="@+id/store_photo"
+        style="@style/info_window_store_photo_style" />
+
+    <TextView
+        android:id="@+id/store_name"
+        style="@style/info_window_store_detail_style" />
+
+    <TextView
+        android:id="@+id/store_address"
+        style="@style/info_window_store_detail_style" />
+
+    <TextView
+        android:id="@+id/store_phone_number"
+        style="@style/info_window_store_detail_style" />
+
+    <TextView
+        android:id="@+id/store_opening_hour"
+        style="@style/info_window_store_detail_style" />
+
+    <TextView
+        android:id="@+id/store_website"
+        style="@style/info_window_store_detail_style" />
+</LinearLayout>

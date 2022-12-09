@@ -26,11 +26,17 @@
     <color name="order_form_title_color">#F50057</color>
     <color name="order_form_value_color">#1DE9B6</color>
     <color name="order_form_title_order_date_color">#2979FF</color>
-    <color name="submit_order_btn_textColor">#EF5350</color>
-    <color name="submit_order_btn_BgColor">#26C6DA</color>
+    <color name="move_to_shop_choosing_btn_text_color">#EF5350</color>
+    <color name="move_to_shop_choosing_btn_bg_color">#26C6DA</color>
     <color name="order_list_description_color">#827717</color>
     <color name="order_list_item_title_color">#F4511E</color>
     <color name="order_list_item_color">#C0CA33</color>
     <color name="filter_btn_bgColor">#00FFFFFF</color>
     <color name="product_list_item_photo_bgColor">#00FFFFFF</color>
+    <color name="btnSwitchMapTypeEnabledBgColor">#80C8E6C9</color>
+    <color name="btnSwitchMapTypeEnabledTextColor">#FF000000</color>
+    <color name="btnSwitchMapTypeDisabledBgColor">#40C8E6C9</color>
+    <color name="btnSwitchMapTypeDisabledTextColor">#FFBDBDBD</color>
+    <color name="locationIndicatorFillColor">#1565C0</color>
+    <color name="locationIndicatorStrokeColor">#1565C0</color>
 </resources>
