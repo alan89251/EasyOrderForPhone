@@ -1,4 +1,4 @@
-package com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.activity
+package com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view.activity
 
 import android.content.Intent
 import android.content.SharedPreferences

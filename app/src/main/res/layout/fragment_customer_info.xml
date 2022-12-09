@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.CustomerInfoFragment">
+    tools:context=".view.activity.CustomerInfoFragment">
 
     <TableLayout
         android:id="@+id/customer_info_form"

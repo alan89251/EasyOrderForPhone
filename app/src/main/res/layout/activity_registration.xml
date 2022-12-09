@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.RegistrationActivity">
+    tools:context=".view.activity.RegistrationActivity">
 
     <TextView
         android:id="@+id/customer_info_form_head"
@@ -30,7 +30,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/sign_up_customer_info_fragment"
-        android:name="com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.activity.CustomerInfoFragment"
+        android:name="com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view.activity.CustomerInfoFragment"
         style="@style/sign_up_customer_info_fragment_style"
         tools:layout="@layout/fragment_customer_info"
         android:layout_below="@id/customer_info_form_row_user_name"/>
