@@ -1,9 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <RelativeLayout
+        style="@style/brand_logo_group_style">
+        <TextView
+            android:id="@+id/description"
+            style="@style/description_style"
+            android:text="@string/description_text" />
+
+        <ImageView
+            android:id="@+id/iphone_logo"
+            style="@style/brand_logo_style"
+            android:layout_below="@id/description"
+            android:src="@drawable/apple_logo" />
+
+        <ImageView
+            android:id="@+id/samsung_logo"
+            style="@style/brand_logo_style"
+            android:layout_below="@id/iphone_logo"
+            android:src="@drawable/samsung_logo" />
+
+        <ImageView
+            android:id="@+id/google_pixel_logo"
+            style="@style/brand_logo_style"
+            android:layout_below="@id/samsung_logo"
+            android:src="@drawable/google_pixel_logo" />
+
+        <ImageView
+            android:id="@+id/oppo_logo"
+            style="@style/brand_logo_style"
+            android:layout_below="@id/google_pixel_logo"
+            android:src="@drawable/oppo_logo" />
+
+        <Button
+            android:id="@+id/navigate_to_sign_in_btn"
+            style="@style/navigate_to_sign_in_btn_style"
+            android:layout_below="@id/oppo_logo"
+            android:text="@string/sign_in_btn_text"
+            android:onClick="navigateToLogin" />
+    </RelativeLayout>
+</RelativeLayout>
