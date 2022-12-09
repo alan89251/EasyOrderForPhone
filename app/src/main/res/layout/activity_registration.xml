@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.RegistrationActivity">
+
+    <TextView
+        android:id="@+id/customer_info_form_head"
+        style="@style/customer_info_form_head_style"
+        android:text="@string/customer_info_form_description" />
+
+    <LinearLayout
+        android:id="@+id/customer_info_form_row_user_name"
+        style="@style/customer_info_form_row_user_name_style"
+        android:layout_below="@id/customer_info_form_head">
+
+        <TextView
+            style="@style/customer_info_form_title_user_name_style"
+            android:text="@string/customer_info_form_title_user_name" />
+
+        <EditText
+            style="@style/customer_info_form_input_control_user_name_style"
+            android:id="@+id/new_user_name"
+            android:ems="10"
+            android:inputType="textEmailAddress" />
+    </LinearLayout>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/sign_up_customer_info_fragment"
+        android:name="com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.activity.CustomerInfoFragment"
+        style="@style/sign_up_customer_info_fragment_style"
+        tools:layout="@layout/fragment_customer_info"
+        android:layout_below="@id/customer_info_form_row_user_name"/>
+
+    <Button
+        android:id="@+id/submit_sign_up_btn"
+        style="@style/customer_info_form_submit_sign_up_btn_style"
+        android:layout_below="@id/sign_up_customer_info_fragment"
+        android:onClick="submitSignUp"
+        android:text="@string/submit_sign_up_btn" />
+</RelativeLayout>
