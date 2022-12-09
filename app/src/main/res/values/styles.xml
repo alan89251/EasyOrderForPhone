@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="brand_logo_group_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerInParent">true</item>
+    </style>
+
+    <style name="brand_logo_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/brandLogoHeight</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:scaleType">centerInside</item>
+        <item name="android:background">@color/brandLogoBgColor</item>
+        <item name="android:layout_margin">@dimen/brandLogoMargin</item>
+    </style>
+
+    <style name="description_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/descriptionTextSize</item>
+        <item name="android:textColor">@color/descriptionTextColor</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_margin">@dimen/descriptionMargin</item>
+    </style>
+
+    <style name="navigate_to_sign_in_btn_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/signInBtnTextSize</item>
+        <item name="android:textColor">@color/signInBtnTextColor</item>
+        <item name="android:backgroundTint">@color/signInBtnBgColor</item>
+        <item name="android:layout_centerHorizontal">true</item>
+    </style>
+
+    <style name="login_form_label_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/loginFormTextSize</item>
+        <item name="android:textColor">@color/loginFormTextColor</item>
+        <item name="android:layout_centerHorizontal">true</item>
+    </style>
+
+    <style name="login_form_input_style">
+        <item name="android:layout_width">@dimen/loginFormInputWidth</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/loginFormTextSize</item>
+        <item name="android:textColor">@color/loginFormTextColor</item>
+        <item name="android:layout_centerHorizontal">true</item>
+    </style>
+
+    <style name="sign_in_btn_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/signInBtnTextSize</item>
+        <item name="android:textColor">@color/signInBtnTextColor</item>
+        <item name="android:backgroundTint">@color/signInBtnBgColor</item>
+        <item name="android:layout_centerHorizontal">true</item>
+    </style>
+
+    <style name="new_user_welcome_text_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/newUserWelcomeTextSize</item>
+        <item name="android:textColor">@color/newUserWelcomeTextColor</item>
+        <item name="android:layout_centerHorizontal">true</item>
+    </style>
+
+    <style name="sign_up_btn_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/signUpBtnTextSize</item>
+        <item name="android:textColor">@color/signUpBtnTextColor</item>
+        <item name="android:backgroundTint">@color/signUpBtnBgColor</item>
+        <item name="android:layout_centerHorizontal">true</item>
+    </style>
+
+    <style name="customer_info_form_head_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/customerInfoFormHeadTopOffset</item>
+        <item name="android:layout_marginLeft">@dimen/customerInfoFormLeftOffset</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:textSize">@dimen/customerInfoFormHeadTextSize</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/customerInfoFormHeadTextColor</item>
+    </style>
+
+    <style name="customer_info_form_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/customerInfoFormLeftOffset</item>
+    </style>
+
+    <style name="customer_info_form_row_user_name_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_marginLeft">@dimen/customerInfoFormLeftOffset</item>
+    </style>
+
+    <style name="customer_info_form_title_user_name_style">
+        <item name="android:layout_width">@dimen/customerInfoFormTitleWidth</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/customerInfoFormTextSize</item>
+        <item name="android:textColor">@color/customerInfoFormTitleTextColor</item>
+    </style>
+
+    <style name="customer_info_form_input_control_user_name_style">
+        <item name="android:layout_width">@dimen/customerInfoFormInputControlWidth</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/customerInfoFormTextSize</item>
+    </style>
+
+    <style name="customer_info_form_title_style">
+        <item name="android:layout_width">@dimen/customerInfoFormTitleWidth</item>
+        <item name="android:textSize">@dimen/customerInfoFormTextSize</item>
+        <item name="android:textColor">@color/customerInfoFormTitleTextColor</item>
+    </style>
+
+    <style name="customer_info_form_input_control_style">
+        <item name="android:layout_width">@dimen/customerInfoFormInputControlWidth</item>
+        <item name="android:textSize">@dimen/customerInfoFormTextSize</item>
+    </style>
+
+    <style name="customer_info_form_submit_sign_up_btn_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_marginLeft">@dimen/customerInfoFormLeftOffset</item>
+        <item name="android:textSize">@dimen/submitSignUpBtnTextSize</item>
+        <item name="android:backgroundTint">@color/submitSignUpBtnColor</item>
+    </style>
+
+    <style name="sign_up_customer_info_fragment_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="welcome_message_place_order_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/welcomeMessagePlaceOrderTextSize</item>
+        <item name="android:textColor">@color/welcomeMessagePlaceOrderTextColor</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_marginTop">@dimen/welcome_message_place_order_marginTop</item>
+    </style>
+
+    <style name="phone_model_list_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/phoneModelListBackgroundColor</item>
+    </style>
+
+    <style name="product_list_item_title_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/product_list_item_title_color</item>
+        <item name="android:textSize">@dimen/product_list_item_title_textSize</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="product_list_item_style">
+        <item name="android:layout_width">@dimen/product_list_item_width</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/product_list_item_color</item>
+        <item name="android:textSize">@dimen/product_list_item_textSize</item>
+        <item name="android:layout_marginLeft">@dimen/product_list_item_marginLeft</item>
+    </style>
+
+    <style name="order_form_description_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:textColor">@color/order_form_description_color</item>
+        <item name="android:textSize">@dimen/order_form_description_textSize</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">@dimen/order_form_description_marginTop</item>
+    </style>
+
+    <style name="order_form_title_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/order_form_title_color</item>
+        <item name="android:textSize">@dimen/order_form_title_textSize</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="order_form_value_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/order_form_value_color</item>
+        <item name="android:textSize">@dimen/order_form_value_textSize</item>
+        <item name="android:layout_marginLeft">@dimen/order_form_value_marginLeft</item>
+    </style>
+
+    <style name="order_form_title_order_date_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:textColor">@color/order_form_title_order_date_color</item>
+        <item name="android:textSize">@dimen/order_form_title_order_date_textSize</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="order_form_input_order_date_style">
+        <item name="android:layout_width">@dimen/order_form_input_order_date_width</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:textSize">@dimen/order_form_input_order_date_textSize</item>
+    </style>
+
+    <style name="submit_order_btn_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:textColor">@color/submit_order_btn_textColor</item>
+        <item name="android:textSize">@dimen/submit_order_btn_textSize</item>
+        <item name="android:backgroundTint">@color/submit_order_btn_BgColor</item>
+    </style>
+
+    <style name="order_list_description_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:textColor">@color/order_list_description_color</item>
+        <item name="android:textSize">@dimen/order_list_description_textSize</item>
+        <item name="android:layout_marginTop">@dimen/order_list_description_marginTop</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="order_list_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="order_list_item_title_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/order_list_item_title_color</item>
+        <item name="android:textSize">@dimen/order_list_item_title_textSize</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="order_list_item_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/order_list_item_color</item>
+        <item name="android:textSize">@dimen/order_list_item_textSize</item>
+        <item name="android:layout_marginLeft">@dimen/order_list_item_marginLeft</item>
+    </style>
+
+    <style name="cancel_order_btn_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="update_customer_info_btn_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_marginLeft">@dimen/customerInfoFormLeftOffset</item>
+        <item name="android:textSize">@dimen/submitSignUpBtnTextSize</item>
+        <item name="android:backgroundTint">@color/submitSignUpBtnColor</item>
+    </style>
+
+    <style name="order_form_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
+
+    <style name="filter_btn_group_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerHorizontal">true</item>
+    </style>
+
+    <style name="filter_btn_style">
+        <item name="android:layout_width">@dimen/filter_btn_width</item>
+        <item name="android:layout_height">@dimen/filter_btn_height</item>
+        <item name="android:layout_marginHorizontal">@dimen/filter_btn_marginHorizontal</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:background">@color/filter_btn_bgColor</item>
+    </style>
+
+    <style name="product_list_item_photo_style">
+        <item name="android:layout_width">@dimen/product_list_item_photo_width</item>
+        <item name="android:layout_height">@dimen/product_list_item_photo_height</item>
+        <item name="android:layout_marginLeft">@dimen/product_list_item_photo_marginLeft</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:background">@color/product_list_item_photo_bgColor</item>
+    </style>
+</resources>
