@@ -10,12 +10,24 @@ import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.ord
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.order.OrderModel
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.product.ProductDao
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.product.ProductModel
+import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.storage_capacity.StorageCapacityDao
+import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.storage_capacity.StorageCapacityModel
 
-@Database(entities = arrayOf(CustomerModel::class, ProductModel::class, OrderModel::class), version = 1, exportSchema = false)
+@Database(
+    entities = arrayOf(
+        CustomerModel::class,
+        ProductModel::class,
+        OrderModel::class,
+        StorageCapacityModel::class
+    ),
+    version = 1,
+    exportSchema = false
+)
 abstract class PhoneOrderServiceDatabase : RoomDatabase() {
     abstract fun customerDao() : CustomerDao
     abstract fun productDao() : ProductDao
     abstract fun orderDao(): OrderDao
+    abstract fun storageCapacityDao(): StorageCapacityDao
 
     companion object {
         @Volatile

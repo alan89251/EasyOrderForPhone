@@ -16,7 +16,10 @@ import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.ord
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.order.OrderRepository
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.product.ProductModel
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.product.ProductRepository
+import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.storage_capacity.StorageCapacityModel
+import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.storage_capacity.StorageCapacityRepository
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.database.PhoneOrderServiceDatabase
+import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view.component.StorageCapacityRadioGroup
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view.view_adapter.ProductListViewAdapter
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.customer.CustomerViewModel
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.customer.CustomerViewModelFactory
@@ -24,6 +27,8 @@ import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.ord
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.order.OrderViewModelFactory
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.product.ProductViewModel
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.product.ProductViewModelFactory
+import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.storage_capacity.StorageCapacityViewModel
+import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.storage_capacity.StorageCapacityViewModelFactory
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
@@ -34,6 +39,8 @@ class OrderActivity : AppCompatActivity() {
     private lateinit var selectedProduct: ProductModel
     private lateinit var customerViewModel: CustomerViewModel
     private lateinit var orderViewModel: OrderViewModel
+    private lateinit var storageCapacityViewModel: StorageCapacityViewModel
+    private lateinit var storageCapacityRadioGroup: StorageCapacityRadioGroup
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,6 +94,15 @@ class OrderActivity : AppCompatActivity() {
             )
         ).get(OrderViewModel::class.java)
 
+        // create view model for storage capacity
+        storageCapacityViewModel = ViewModelProvider(this,
+            StorageCapacityViewModelFactory(
+                StorageCapacityRepository(
+                    phoneOrderServiceDatabase!!.storageCapacityDao()
+                )
+            )
+        ).get(StorageCapacityViewModel::class.java)
+
         // loading data from repository
         productViewModel.initProductList()
         productViewModel.productList!!.observe(this, ::updateProductList)
@@ -127,6 +143,14 @@ class OrderActivity : AppCompatActivity() {
      */
     private fun showOrderForm() {
         setContentView(R.layout.order_form)
+
+        // get storage capacity list of the product from repository
+        // and use it to set the radio group to let user choose a capacity
+        storageCapacityRadioGroup = StorageCapacityRadioGroup(this)
+        storageCapacityViewModel.getStorageCapacities(selectedProduct.ProductId!!)!!
+            .observe(this, ::setStorageCapacityRadioGroupBtns)
+        findViewById<LinearLayout>(R.id.order_form).addView(storageCapacityRadioGroup.getView())
+
         findViewById<TextView>(R.id.order_form_phone_model).text = selectedProduct.PhoneModel
         findViewById<TextView>(R.id.order_form_product_id).text = selectedProduct.ProductId.toString()
         findViewById<TextView>(R.id.order_form_phone_make).text = selectedProduct.PhoneMake
@@ -185,6 +209,12 @@ class OrderActivity : AppCompatActivity() {
             R.id.filter_google_pixel_btn -> resources.getString(R.string.google_pixel_brand_name)
             R.id.filter_oppo_btn -> resources.getString(R.string.oppo_brand_name)
             else -> "" // never hit this case
+        }
+    }
+
+    private fun setStorageCapacityRadioGroupBtns(storageCapacities: List<StorageCapacityModel>) {
+        for (storageCapacity in storageCapacities) {
+            storageCapacityRadioGroup.addStorageCapacity(storageCapacity.StorageCapacity)
         }
     }
 }
