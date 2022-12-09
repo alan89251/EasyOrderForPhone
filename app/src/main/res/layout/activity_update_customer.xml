@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.activity.UpdateCustomerActivity">
+
+    <TextView
+        android:id="@+id/update_customer_info_form_head"
+        style="@style/customer_info_form_head_style"
+        android:text="@string/customer_info_form_description" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/update_customer_info_fragment"
+        android:name="com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view.activity.CustomerInfoFragment"
+        style="@style/sign_up_customer_info_fragment_style"
+        tools:layout="@layout/fragment_customer_info"
+        android:layout_below="@id/update_customer_info_form_head"/>
+
+    <Button
+        android:id="@+id/update_customer_info_btn"
+        style="@style/update_customer_info_btn_style"
+        android:layout_below="@id/update_customer_info_fragment"
+        android:onClick="updateCustomerInfo"
+        android:text="@string/update_customer_info_btn" />
+
+</RelativeLayout>
