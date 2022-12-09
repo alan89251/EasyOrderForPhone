@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <TableRow>
+            <TextView
+                style="@style/order_list_item_title_style"
+                android:text="@string/order_list_item_title_order_id" />
+
+            <TextView
+                android:id="@+id/order_list_item_order_id"
+                style="@style/order_list_item_style" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                style="@style/order_list_item_title_style"
+                android:text="@string/order_list_item_title_customer_id" />
+
+            <TextView
+                android:id="@+id/order_list_item_customer_id"
+                style="@style/order_list_item_style" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                style="@style/order_list_item_title_style"
+                android:text="@string/product_info_title_phone_model" />
+
+            <TextView
+                android:id="@+id/order_list_item_phone_model"
+                style="@style/order_list_item_style" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                style="@style/order_list_item_title_style"
+                android:text="@string/product_info_title_product_id" />
+
+            <TextView
+                android:id="@+id/order_list_item_product_id"
+                style="@style/order_list_item_style" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                style="@style/order_list_item_title_style"
+                android:text="@string/product_info_title_phone_make" />
+
+            <TextView
+                android:id="@+id/order_list_item_phone_make"
+                style="@style/order_list_item_style" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                style="@style/order_list_item_title_style"
+                android:text="@string/product_info_title_phone_color" />
+
+            <TextView
+                android:id="@+id/order_list_item_phone_color"
+                style="@style/order_list_item_style" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                style="@style/order_list_item_title_style"
+                android:text="@string/product_info_title_storage_capacity" />
+
+            <TextView
+                android:id="@+id/order_list_item_storage_capacity"
+                style="@style/order_list_item_style" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                style="@style/order_list_item_title_style"
+                android:text="@string/product_info_title_price" />
+
+            <TextView
+                android:id="@+id/order_list_item_price"
+                style="@style/order_list_item_style" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                style="@style/order_list_item_title_style"
+                android:text="@string/order_list_item_title_order_date" />
+
+            <TextView
+                android:id="@+id/order_list_item_order_date"
+                style="@style/order_list_item_style" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                style="@style/order_list_item_title_style"
+                android:text="@string/order_list_item_title_status" />
+
+            <TextView
+                android:id="@+id/order_list_item_status"
+                style="@style/order_list_item_style" />
+        </TableRow>
+    </TableLayout>
+
+    <ImageButton
+        android:id="@+id/cancel_order_btn"
+        style="@style/cancel_order_btn_style"
+        android:src="@drawable/x_circle"/>
+</LinearLayout>
