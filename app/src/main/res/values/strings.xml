@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">ChunFungSuen_MAPD711_MiniProject-PhoneApp</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="google_api_key">AIzaSyBlgz0RJlUUzIY5nW5DvxpMAb9CogjcyPk</string>
 </resources>
