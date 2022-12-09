@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.OrderActivity">
+
+    <TextView
+        android:id="@+id/welcome_message_place_order"
+        style="@style/welcome_message_place_order_style" />
+
+    <RelativeLayout
+        android:id="@+id/filter_btn_group"
+        style="@style/filter_btn_group_style"
+        android:layout_below="@id/welcome_message_place_order" >
+
+        <ImageButton
+            android:id="@+id/filter_apple_btn"
+            style="@style/filter_btn_style"
+            android:src="@drawable/apple_logo"
+            android:onClick="onFilterBtnClicked" />
+
+        <ImageButton
+            android:id="@+id/filter_samsung_btn"
+            style="@style/filter_btn_style"
+            android:src="@drawable/samsung_logo"
+            android:layout_toRightOf="@id/filter_apple_btn"
+            android:onClick="onFilterBtnClicked" />
+
+        <ImageButton
+            android:id="@+id/filter_google_pixel_btn"
+            style="@style/filter_btn_style"
+            android:src="@drawable/google_pixel_logo"
+            android:layout_toRightOf="@id/filter_samsung_btn"
+            android:onClick="onFilterBtnClicked" />
+
+        <ImageButton
+            android:id="@+id/filter_oppo_btn"
+            style="@style/filter_btn_style"
+            android:src="@drawable/oppo_logo"
+            android:layout_toRightOf="@id/filter_google_pixel_btn"
+            android:onClick="onFilterBtnClicked" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/phone_model_list"
+        style="@style/phone_model_list_style"
+        android:layout_below="@id/filter_btn_group"/>
+</RelativeLayout>
