@@ -1,7 +1,8 @@
-package com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp
+package com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.R
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
