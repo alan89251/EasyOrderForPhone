@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.CustomerInfoFragment">
+
+    <TableLayout
+        android:id="@+id/customer_info_form"
+        style="@style/customer_info_form_style" >
+
+        <TableRow>
+            <TextView
+                style="@style/customer_info_form_title_style"
+                android:text="@string/customer_info_form_title_password" />
+
+            <EditText
+                style="@style/customer_info_form_input_control_style"
+                android:id="@+id/new_password"
+                android:ems="10"
+                android:inputType="textPassword" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                style="@style/customer_info_form_title_style"
+                android:text="@string/customer_info_form_title_firstname" />
+
+            <EditText
+                style="@style/customer_info_form_input_control_style"
+                android:id="@+id/firstname"
+                android:ems="10"
+                android:inputType="textPersonName" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                style="@style/customer_info_form_title_style"
+                android:text="@string/customer_info_form_title_lastname" />
+
+            <EditText
+                style="@style/customer_info_form_input_control_style"
+                android:id="@+id/lastname"
+                android:ems="10"
+                android:inputType="textPersonName" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                style="@style/customer_info_form_title_style"
+                android:text="@string/customer_info_form_title_address" />
+
+            <EditText
+                style="@style/customer_info_form_input_control_style"
+                android:id="@+id/address"
+                android:ems="10"
+                android:inputType="textPostalAddress" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                style="@style/customer_info_form_title_style"
+                android:text="@string/customer_info_form_title_city" />
+
+            <EditText
+                style="@style/customer_info_form_input_control_style"
+                android:id="@+id/city"
+                android:ems="10" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                style="@style/customer_info_form_title_style"
+                android:text="@string/customer_info_form_title_country" />
+
+            <EditText
+                style="@style/customer_info_form_input_control_style"
+                android:id="@+id/country"
+                android:ems="10" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                style="@style/customer_info_form_title_style"
+                android:text="@string/customer_info_form_title_postal_code" />
+
+            <EditText
+                style="@style/customer_info_form_input_control_style"
+                android:id="@+id/postal_code"
+                android:ems="10" />
+        </TableRow>
+    </TableLayout>
+</FrameLayout>

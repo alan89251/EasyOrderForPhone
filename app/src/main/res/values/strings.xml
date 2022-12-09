@@ -44,4 +44,6 @@
     <string name="order_status_text_ordered">Ordered</string>
     <string name="order_status_text_cancelled">Cancelled</string>
     <string name="order_status_text_delivered">Delivered</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
