@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/order_form_description_style"
+        android:text="@string/order_form_description" />
+
+    <TableLayout
+        style="@style/order_form_style"
+        >
+
+        <TableRow>
+            <TextView
+                style="@style/order_form_title_style"
+                android:text="@string/product_info_title_phone_model" />
+
+            <TextView
+                android:id="@+id/order_form_phone_model"
+                style="@style/order_form_value_style" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                style="@style/order_form_title_style"
+                android:text="@string/product_info_title_product_id" />
+
+            <TextView
+                android:id="@+id/order_form_product_id"
+                style="@style/order_form_value_style" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                style="@style/order_form_title_style"
+                android:text="@string/product_info_title_phone_make" />
+
+            <TextView
+                android:id="@+id/order_form_phone_make"
+                style="@style/order_form_value_style" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                style="@style/order_form_title_style"
+                android:text="@string/product_info_title_phone_color" />
+
+            <TextView
+                android:id="@+id/order_form_phone_color"
+                style="@style/order_form_value_style" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                style="@style/order_form_title_style"
+                android:text="@string/product_info_title_storage_capacity" />
+
+            <TextView
+                android:id="@+id/order_form_storage_capacity"
+                style="@style/order_form_value_style" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                style="@style/order_form_title_style"
+                android:text="@string/product_info_title_price" />
+
+            <TextView
+                android:id="@+id/order_form_price"
+                style="@style/order_form_value_style" />
+        </TableRow>
+    </TableLayout>
+
+    <TextView
+        style="@style/order_form_title_order_date_style"
+        android:text="@string/order_form_title_order_date" />
+
+    <EditText
+        android:id="@+id/order_form_order_date"
+        style="@style/order_form_input_order_date_style"
+        android:hint="dd/MM/yyyy"/>
+
+    <Button
+        android:id="@+id/submit_order_btn"
+        style="@style/submit_order_btn_style"
+        android:text="@string/submit_order_btn_text" />
+
+</LinearLayout>
