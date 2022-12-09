@@ -21,6 +21,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ChunFungSuen_MAPD711_MiniProjectPhoneApp"
         tools:targetApi="31">
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -29,9 +36,7 @@
         <activity
             android:name=".activity.MapsActivity"
             android:exported="false"
-            android:label="@string/title_activity_maps">
-        </activity>
-
+            android:label="@string/title_activity_maps"></activity>
         <activity
             android:name=".activity.MainActivity"
             android:exported="true">

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.LoginActivity">
+
+    <TextView
+        android:id="@+id/user_textView"
+        style="@style/login_form_label_style"
+        android:text="@string/user_textView_text" />
+
+    <EditText
+        android:id="@+id/user_editText"
+        style="@style/login_form_input_style"
+        android:layout_below="@id/user_textView"
+        android:inputType="textEmailAddress" />
+
+    <TextView
+        android:id="@+id/password_textView"
+        style="@style/login_form_label_style"
+        android:layout_below="@id/user_editText"
+        android:text="@string/password_textView_text" />
+
+    <EditText
+        android:id="@+id/password_editText"
+        style="@style/login_form_input_style"
+        android:layout_below="@id/password_textView"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/sign_in_btn"
+        style="@style/sign_in_btn_style"
+        android:layout_below="@id/password_editText"
+        android:text="@string/sign_in_btn_text"
+        android:onClick="onSignInBtnClicked" />
+
+    <TextView
+        android:id="@+id/new_user_welcome_text"
+        style="@style/new_user_welcome_text_style"
+        android:layout_below="@id/sign_in_btn"
+        android:text="@string/new_user_welcome_text" />
+
+    <Button
+        android:id="@+id/sign_up_btn"
+        style="@style/sign_up_btn_style"
+        android:layout_below="@id/new_user_welcome_text"
+        android:text="@string/sign_up_btn_text"
+        android:onClick="onSignUpBtnClicked"/>
+</RelativeLayout>
