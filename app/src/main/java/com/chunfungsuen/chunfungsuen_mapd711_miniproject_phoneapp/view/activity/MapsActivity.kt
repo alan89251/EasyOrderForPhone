@@ -42,6 +42,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private var isUpdateStoreInfoOnMap = true // control whether to update the store info shown on the map
     private var selectedBrand = "" // user selected brand of phone
     private var markerIdPlaceIdMap = HashMap<String, String>() // key: marker id, value: place id
+    private var selectedStore: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -256,9 +257,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun setMapOnMarkerClickListener(infoWindowView: View) {
         mMap.setOnMarkerClickListener { marker ->
             DownloadStoreInfoLogic(
-                {
-                    showInfoWindow(it, marker, infoWindowView)
-                },
+                { onDownloadStoreInfoCompleted(it, marker, infoWindowView) },
                 resources.getString(R.string.google_place_detail_api_url),
                 resources.getString(R.string.google_place_photo_api_url),
                 resources.getString(R.string.google_api_key),
@@ -268,6 +267,17 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
             true
         }
+    }
+
+    /**
+     * 1. Display info window of the store
+     * 2. save the current selected store name in memory
+     */
+    private fun onDownloadStoreInfoCompleted(storeInfo: DownloadStoreInfoLogic.StoreInfo,
+                                             marker: Marker,
+                                             infoWindowView: View) {
+        showInfoWindow(storeInfo, marker, infoWindowView)
+        selectedStore = storeInfo.name
     }
 
     /**
