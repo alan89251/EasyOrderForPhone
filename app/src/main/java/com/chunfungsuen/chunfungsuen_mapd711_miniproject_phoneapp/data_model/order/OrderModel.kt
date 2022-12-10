@@ -3,6 +3,7 @@ package com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.or
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
 @Entity(tableName = "order")
 class OrderModel (
@@ -15,9 +16,15 @@ class OrderModel (
     @ColumnInfo(name = "orderDate")
     var OrderDate: String,
 
+    @ColumnInfo(name = "storeName")
+    var StoreName: String,
+
+    @ColumnInfo(name = "storePlaceId")
+    var StorePlaceId: String,
+
     @ColumnInfo(name = "status")
     var Status: String
-)
+) : Serializable
 {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "orderId")

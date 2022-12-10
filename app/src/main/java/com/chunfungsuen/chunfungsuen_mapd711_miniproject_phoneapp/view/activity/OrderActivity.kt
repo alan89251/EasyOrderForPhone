@@ -165,7 +165,7 @@ class OrderActivity : AppCompatActivity() {
 
     /**
      * Set to another content view that display a short summary of the info of the phone selected by the user
-     * Also, ask for an order date
+     * Also, ask for order date, storage capacity, phone colour
      */
     private fun showOrderForm() {
         setContentView(R.layout.order_form)
@@ -208,17 +208,18 @@ class OrderActivity : AppCompatActivity() {
 
             // First, get the customer id from repository by user name. Then, save order to repository
             customerViewModel.customer!!.observe(this, Observer {
-                // save order to repository
                 val order = OrderModel(
                     it.CustId!!,
                     selectedProduct.ProductId!!,
                     orderDateStr,
-                    resources.getString(R.string.order_status_text_ordered)
+                    resources.getString(R.string.order_status_text_ordered),
+                    "",
+                    ""
                 )
-                orderViewModel.insertOrder(order)
 
-                // Navigate to update order activity
+                // Navigate to map activity for selecting the phone store
                 val intent = Intent(this@OrderActivity, MapsActivity::class.java)
+                intent.putExtra("order", order)
                 startActivity(intent)
             })
         }

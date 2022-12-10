@@ -20,6 +20,7 @@ import java.time.format.DateTimeFormatterBuilder
  */
 class DownloadStoreInfoLogic {
     class StoreInfo(
+        var id: String = "",
         var name: String = "",
         var address: String = "",
         var phoneNumber: String = "",
@@ -36,6 +37,7 @@ class DownloadStoreInfoLogic {
     private val placePhotoApiUrl: String
     private val apiKey: String
     private val storePhotoMaxHeight: Int
+    private var placeId: String
 
     constructor(onDownloadCompleted: (StoreInfo) -> Unit,
                 placeDetailApiUrl: String,
@@ -47,11 +49,14 @@ class DownloadStoreInfoLogic {
         this.placePhotoApiUrl = placePhotoApiUrl
         this.apiKey = apiKey
         this.storePhotoMaxHeight = storePhotoMaxHeight
+
+        placeId = ""
     }
 
-    fun asyncDisplayStoreInfoWindow(placeId: String) {
+    fun asyncDownloadStoreInfo(placeId: String) {
+        this.placeId = placeId
         val urlStr = placeDetailApiUrl + "?" +
-                "place_id" + "=" + placeId + "&" +
+                "place_id" + "=" + this.placeId + "&" +
                 "key" + "=" + apiKey + "&" +
                 "fields" + "=" + fieldsOfStoreDetail
         CoroutineScope(Dispatchers.IO).launch {
@@ -93,7 +98,9 @@ class DownloadStoreInfoLogic {
                 withContext(Dispatchers.Main) {
                     // set and show the info window
                     onDownloadCompleted(
-                        StoreInfo(name,
+                        StoreInfo(
+                            placeId,
+                            name,
                             address,
                             phoneNumber,
                             website,

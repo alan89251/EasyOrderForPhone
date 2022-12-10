@@ -1,8 +1,8 @@
 package com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view.activity
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
@@ -14,7 +14,11 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.ViewModelProvider
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.R
+import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.order.OrderModel
+import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.order.OrderRepository
+import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.database.PhoneOrderServiceDatabase
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -26,6 +30,8 @@ import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.databinding.Ac
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.google_map_utils.GoogleAPIGetRequestClient
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.logic.DownloadStoreInfoLogic
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view.view_adapter.PhoneStoreInfoWindowAdapter
+import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.order.OrderViewModel
+import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.order.OrderViewModelFactory
 import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.Marker
 import kotlinx.coroutines.CoroutineScope
@@ -42,12 +48,26 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private var isUpdateStoreInfoOnMap = true // control whether to update the store info shown on the map
     private var selectedBrand = "" // user selected brand of phone
     private var markerIdPlaceIdMap = HashMap<String, String>() // key: marker id, value: place id
-    private var selectedStore: String = ""
+    private var selectedStore = DownloadStoreInfoLogic.StoreInfo()
+    private lateinit var orderViewModel: OrderViewModel
+    private lateinit var order: OrderModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        selectedBrand = intent.getStringExtra("brand").toString()
+        order = intent.getSerializableExtra("order") as OrderModel
+
+        // init database
+        val phoneOrderServiceDatabase = PhoneOrderServiceDatabase.getDatabaseClient(this@MapsActivity)
+
+        // create view model for order
+        orderViewModel = ViewModelProvider(this,
+            OrderViewModelFactory(
+                OrderRepository(
+                    phoneOrderServiceDatabase!!.orderDao()
+                )
+            )
+        ).get(OrderViewModel::class.java)
 
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -263,7 +283,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 resources.getString(R.string.google_api_key),
                 resources.getInteger(R.integer.store_photo_max_height)
             )
-                .asyncDisplayStoreInfoWindow(getPlaceIdByMarkerId(marker.id))
+                .asyncDownloadStoreInfo(getPlaceIdByMarkerId(marker.id))
 
             true
         }
@@ -277,7 +297,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                                              marker: Marker,
                                              infoWindowView: View) {
         showInfoWindow(storeInfo, marker, infoWindowView)
-        selectedStore = storeInfo.name
+        selectedStore = storeInfo
     }
 
     /**
@@ -290,12 +310,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     ) {
         setInfoWindowView(
             infoWindowView,
-            storeInfo.name,
-            storeInfo.address,
-            storeInfo.phoneNumber,
-            storeInfo.website,
-            storeInfo.openingHour,
-            storeInfo.photo
+            storeInfo
         )
         mMap.moveCamera(CameraUpdateFactory.newLatLng(marker.position))
         marker.showInfoWindow()
@@ -305,20 +320,29 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
      * Set the contents in the info window
      */
     private fun setInfoWindowView(infoWindowView: View,
-                                  name: String,
-                                  address: String,
-                                  phoneNumber: String,
-                                  website: String,
-                                  openingHour: String,
-                                  photo: Bitmap?
+                                  storeInfo: DownloadStoreInfoLogic.StoreInfo
     ) {
-        if (photo != null) {
-            infoWindowView.findViewById<ImageView>(R.id.store_photo).setImageBitmap(photo)
+        if (storeInfo.photo != null) {
+            infoWindowView.findViewById<ImageView>(R.id.store_photo).setImageBitmap(storeInfo.photo)
         }
-        infoWindowView.findViewById<TextView>(R.id.store_name).text = name
-        infoWindowView.findViewById<TextView>(R.id.store_address).text = address
-        infoWindowView.findViewById<TextView>(R.id.store_phone_number).text = phoneNumber
-        infoWindowView.findViewById<TextView>(R.id.store_opening_hour).text = "Opens at " +openingHour
-        infoWindowView.findViewById<TextView>(R.id.store_website).text = website
+        infoWindowView.findViewById<TextView>(R.id.store_name).text = storeInfo.name
+        infoWindowView.findViewById<TextView>(R.id.store_address).text = storeInfo.address
+        infoWindowView.findViewById<TextView>(R.id.store_phone_number).text = storeInfo.phoneNumber
+        infoWindowView.findViewById<TextView>(R.id.store_opening_hour).text = "Opens at " + storeInfo.openingHour
+        infoWindowView.findViewById<TextView>(R.id.store_website).text = storeInfo.website
+    }
+
+    /**
+     * 1. Add the selected store to the order
+     * 2. Save the order
+     * 3. Navigate to the update order activity
+     */
+    fun onClickBtnSelectShop(v: View) {
+        order.StoreName = selectedStore.name
+        order.StorePlaceId = selectedStore.id
+        orderViewModel.insertOrder(order)
+
+        val intent = Intent(this@MapsActivity, UpdateOrderActivity::class.java)
+        startActivity(intent)
     }
 }
