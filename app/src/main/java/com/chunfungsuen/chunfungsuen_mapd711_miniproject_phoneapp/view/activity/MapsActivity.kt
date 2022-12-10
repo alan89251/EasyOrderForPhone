@@ -21,9 +21,10 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.databinding.ActivityMapsBinding
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.google_map_utils.GoogleAPIGetRequestClient
-import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view.event_handler.StoreMarkerClickListener
+import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view.event_handler.DisplayStoreInfoWindowLogic
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view.view_adapter.PhoneStoreInfoWindowAdapter
 import com.google.android.gms.maps.model.CircleOptions
+import com.google.android.gms.maps.model.Marker
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -72,16 +73,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap = googleMap
         val infoWindowView = layoutInflater.inflate(R.layout.store_info_window, null)
         val phoneStoreInfoWindowAdapter = PhoneStoreInfoWindowAdapter(infoWindowView)
-        val storeMarkerClickListener = StoreMarkerClickListener(::getPlaceIdByMarkerId,
-            resources.getString(R.string.google_place_detail_api_url),
-            resources.getString(R.string.google_place_photo_api_url),
-            resources.getString(R.string.google_api_key),
-            resources.getInteger(R.integer.store_photo_max_height),
-            infoWindowView,
-            mMap
-        )
         mMap.setInfoWindowAdapter(phoneStoreInfoWindowAdapter)
-        mMap.setOnMarkerClickListener(storeMarkerClickListener)
+        setMapOnMarkerClickListener(infoWindowView)
 
         requestLocation() // get the current location
     }
@@ -252,5 +245,24 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         button.isEnabled = false
         button.setBackgroundColor(resources.getColor(R.color.btnSwitchMapTypeDisabledBgColor))
         button.setTextColor(resources.getColor(R.color.btnSwitchMapTypeDisabledTextColor))
+    }
+
+    /**
+     * Set listener for the click event of a store marker
+     */
+    private fun setMapOnMarkerClickListener(infoWindowView: View) {
+        val displayStoreInfoWindowLogic = DisplayStoreInfoWindowLogic(::getPlaceIdByMarkerId,
+            resources.getString(R.string.google_place_detail_api_url),
+            resources.getString(R.string.google_place_photo_api_url),
+            resources.getString(R.string.google_api_key),
+            resources.getInteger(R.integer.store_photo_max_height),
+            infoWindowView,
+            mMap
+        )
+        mMap.setOnMarkerClickListener { marker ->
+            displayStoreInfoWindowLogic.displayStoreInfoWindow(marker)
+
+            true
+        }
     }
 }

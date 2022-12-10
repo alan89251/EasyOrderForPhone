@@ -23,9 +23,9 @@ import java.time.LocalTime
 import java.time.format.DateTimeFormatterBuilder
 
 /**
- * Listener for the click event of a store marker
+ * Display info window of phone store
  */
-class StoreMarkerClickListener : GoogleMap.OnMarkerClickListener{
+class DisplayStoreInfoWindowLogic {
     // callback that support finding the place id by marker id
     private val getPlaceIdByMarkerId: (String) -> String
     // do not use resource to save this config because it is highly couple to this class
@@ -53,7 +53,7 @@ class StoreMarkerClickListener : GoogleMap.OnMarkerClickListener{
         this.map = map
     }
 
-    override fun onMarkerClick(marker: Marker): Boolean {
+    fun displayStoreInfoWindow(marker: Marker) {
         val placeId = getPlaceIdByMarkerId(marker.id)
         val urlStr = placeDetailApiUrl + "?" +
                 "place_id" + "=" + placeId + "&" +
@@ -68,8 +68,6 @@ class StoreMarkerClickListener : GoogleMap.OnMarkerClickListener{
                 onReceivedStoreDetail(response, marker)
             }
         }
-
-        return true
     }
 
     /**
