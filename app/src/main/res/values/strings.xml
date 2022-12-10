@@ -21,6 +21,11 @@
     <string name="customer_info_form_title_city">City:</string>
     <string name="customer_info_form_title_country">Country:</string>
     <string name="customer_info_form_title_postal_code">Postal code:</string>
+    <string name="customer_info_form_title_phone_number">Telephone:</string>
+    <string name="customer_info_form_title_credit_card_no">Credit card number:</string>
+    <string name="customer_info_form_title_card_type">Card type:</string>
+    <string name="customer_info_form_title_card_expiration">Card expiration:</string>
+    <string name="customer_info_form_title_CVC">CVV/CVC:</string>
     <string name="submit_sign_up_btn">Sign up</string>
     <string name="welcome_message_place_order_template">Welcome %s! Click to order your favourite phone!</string>
     <string name="order_form_description">You selected:</string>

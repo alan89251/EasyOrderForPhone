@@ -14,7 +14,7 @@
     <dimen name="customerInfoFormHeadTextSize">34sp</dimen>
     <dimen name="customerInfoFormTextSize">18sp</dimen>
     <dimen name="customerInfoFormInputControlWidth">200dp</dimen>
-    <dimen name="customerInfoFormTitleWidth">120dp</dimen>
+    <dimen name="customerInfoFormTitleWidth">160dp</dimen>
     <dimen name="submitSignUpBtnTextSize">24sp</dimen>
     <dimen name="welcomeMessagePlaceOrderTextSize">24sp</dimen>
     <dimen name="product_list_item_title_textSize">20sp</dimen>

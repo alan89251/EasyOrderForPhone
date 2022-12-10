@@ -89,5 +89,67 @@
                 android:id="@+id/postal_code"
                 android:ems="10" />
         </TableRow>
+
+        <TableRow>
+            <TextView
+                style="@style/customer_info_form_title_style"
+                android:text="@string/customer_info_form_title_phone_number" />
+
+            <EditText
+                style="@style/customer_info_form_input_control_style"
+                android:id="@+id/phone"
+                android:ems="10"
+                android:inputType="phone" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                style="@style/customer_info_form_title_style"
+                android:text="@string/customer_info_form_title_credit_card_no" />
+
+            <EditText
+                style="@style/customer_info_form_input_control_style"
+                android:id="@+id/credit_card_no"
+                android:ems="10"
+                android:inputType="number" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                style="@style/customer_info_form_title_style"
+                android:text="@string/customer_info_form_title_card_type" />
+
+            <EditText
+                style="@style/customer_info_form_input_control_style"
+                android:id="@+id/card_type"
+                android:ems="10"
+                android:inputType="textShortMessage" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                style="@style/customer_info_form_title_style"
+                android:text="@string/customer_info_form_title_card_expiration" />
+
+            <EditText
+                style="@style/customer_info_form_input_control_style"
+                android:id="@+id/card_expiration"
+                android:ems="10"
+                android:hint="YYYY/MM/DD"
+                android:inputType="date" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                style="@style/customer_info_form_title_style"
+                android:text="@string/customer_info_form_title_CVC" />
+
+            <EditText
+                style="@style/customer_info_form_input_control_style"
+                android:id="@+id/credit_card_CVC"
+                android:ems="10"
+                android:hint="123"
+                android:inputType="number" />
+        </TableRow>
     </TableLayout>
 </FrameLayout>

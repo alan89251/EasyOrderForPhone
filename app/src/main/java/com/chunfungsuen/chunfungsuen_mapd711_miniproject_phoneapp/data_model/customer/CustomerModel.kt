@@ -28,7 +28,22 @@ data class CustomerModel(
     var Country: String,
 
     @ColumnInfo(name = "postalCode")
-    var PostalCode: String
+    var PostalCode: String,
+
+    @ColumnInfo(name = "telephone")
+    var Telephone: String,
+
+    @ColumnInfo(name = "creditCardNo")
+    var CreditCardNo: String,
+
+    @ColumnInfo(name = "cardType")
+    var CardType: String,
+
+    @ColumnInfo(name = "cardExpiration")
+    var cardExpiration: String,
+
+    @ColumnInfo(name = "creditCardCVC")
+    var CreditCardCVC: String
 )
 {
     @PrimaryKey(autoGenerate = true)
