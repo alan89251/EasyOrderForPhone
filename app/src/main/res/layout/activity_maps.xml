@@ -37,4 +37,11 @@
             android:text="@string/switch_to_hybrid_text"
             android:onClick="onClickBtnSwitchToHybrid" />
     </RelativeLayout>
+
+    <Button
+        android:id="@+id/select_shop_btn"
+        style="@style/select_shop_btn_style"
+        android:layout_alignParentBottom="true"
+        android:text="@string/select_shop_btn_text"
+        android:onClick="onClickBtnSelectShop" />
 </RelativeLayout>

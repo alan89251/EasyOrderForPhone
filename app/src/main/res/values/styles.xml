@@ -363,4 +363,14 @@
         <item name="android:textColor">@color/storageAndColorSelectTitleTextColor</item>
         <item name="android:layout_gravity">center_horizontal</item>
     </style>
+
+    <style name="select_shop_btn_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/selectShopBtnTextSize</item>
+        <item name="android:textColor">@color/selectShopBtnTextColor</item>
+        <item name="android:backgroundTint">@color/selectShopBtnBgColor</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_marginBottom">@dimen/selectShopBtnMarginBottom</item>
+    </style>
 </resources>

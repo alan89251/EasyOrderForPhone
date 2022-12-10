@@ -2,6 +2,7 @@ package com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view.activity
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
@@ -10,6 +11,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.R
 
@@ -21,7 +24,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.databinding.ActivityMapsBinding
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.google_map_utils.GoogleAPIGetRequestClient
-import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view.event_handler.DisplayStoreInfoWindowLogic
+import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.logic.DownloadStoreInfoLogic
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view.view_adapter.PhoneStoreInfoWindowAdapter
 import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.Marker
@@ -251,18 +254,61 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
      * Set listener for the click event of a store marker
      */
     private fun setMapOnMarkerClickListener(infoWindowView: View) {
-        val displayStoreInfoWindowLogic = DisplayStoreInfoWindowLogic(::getPlaceIdByMarkerId,
-            resources.getString(R.string.google_place_detail_api_url),
-            resources.getString(R.string.google_place_photo_api_url),
-            resources.getString(R.string.google_api_key),
-            resources.getInteger(R.integer.store_photo_max_height),
-            infoWindowView,
-            mMap
-        )
         mMap.setOnMarkerClickListener { marker ->
-            displayStoreInfoWindowLogic.displayStoreInfoWindow(marker)
+            DownloadStoreInfoLogic(
+                {
+                    showInfoWindow(it, marker, infoWindowView)
+                },
+                resources.getString(R.string.google_place_detail_api_url),
+                resources.getString(R.string.google_place_photo_api_url),
+                resources.getString(R.string.google_api_key),
+                resources.getInteger(R.integer.store_photo_max_height)
+            )
+                .asyncDisplayStoreInfoWindow(getPlaceIdByMarkerId(marker.id))
 
             true
         }
+    }
+
+    /**
+     * Set the content of the info window and then show it
+     * Also, center the map camera on the marker
+     */
+    private fun showInfoWindow(storeInfo: DownloadStoreInfoLogic.StoreInfo,
+                               marker: Marker,
+                               infoWindowView: View
+    ) {
+        setInfoWindowView(
+            infoWindowView,
+            storeInfo.name,
+            storeInfo.address,
+            storeInfo.phoneNumber,
+            storeInfo.website,
+            storeInfo.openingHour,
+            storeInfo.photo
+        )
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(marker.position))
+        marker.showInfoWindow()
+    }
+
+    /**
+     * Set the contents in the info window
+     */
+    private fun setInfoWindowView(infoWindowView: View,
+                                  name: String,
+                                  address: String,
+                                  phoneNumber: String,
+                                  website: String,
+                                  openingHour: String,
+                                  photo: Bitmap?
+    ) {
+        if (photo != null) {
+            infoWindowView.findViewById<ImageView>(R.id.store_photo).setImageBitmap(photo)
+        }
+        infoWindowView.findViewById<TextView>(R.id.store_name).text = name
+        infoWindowView.findViewById<TextView>(R.id.store_address).text = address
+        infoWindowView.findViewById<TextView>(R.id.store_phone_number).text = phoneNumber
+        infoWindowView.findViewById<TextView>(R.id.store_opening_hour).text = "Opens at " +openingHour
+        infoWindowView.findViewById<TextView>(R.id.store_website).text = website
     }
 }

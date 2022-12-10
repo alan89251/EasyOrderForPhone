@@ -50,4 +50,6 @@
     <dimen name="btnSwitchMapTypeTextSize">16sp</dimen>
     <dimen name="storageRadioBtnTextSize">24sp</dimen>
     <dimen name="storageAndColorSelectTitleTextSize">34sp</dimen>
+    <dimen name="selectShopBtnTextSize">16sp</dimen>
+    <dimen name="selectShopBtnMarginBottom">10dp</dimen>
 </resources>

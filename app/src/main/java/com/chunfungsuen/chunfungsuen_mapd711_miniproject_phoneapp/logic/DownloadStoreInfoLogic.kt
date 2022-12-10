@@ -1,16 +1,9 @@
-package com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view.event_handler
+package com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.logic
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Log
-import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
-import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.R
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.google_map_utils.GoogleAPIGetRequestClient
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.model.Marker
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -25,36 +18,38 @@ import java.time.format.DateTimeFormatterBuilder
 /**
  * Display info window of phone store
  */
-class DisplayStoreInfoWindowLogic {
+class DownloadStoreInfoLogic {
+    class StoreInfo(
+        var name: String = "",
+        var address: String = "",
+        var phoneNumber: String = "",
+        var website: String = "",
+        var openingHour: String = "",
+        var photo: Bitmap? = null
+    ) {}
+
     // callback that support finding the place id by marker id
-    private val getPlaceIdByMarkerId: (String) -> String
+    private val onDownloadCompleted: (StoreInfo) -> Unit
     // do not use resource to save this config because it is highly couple to this class
     private val fieldsOfStoreDetail = "geometry%2Cname%2Cformatted_address%2Cformatted_phone_number%2Cwebsite%2Ccurrent_opening_hours%2Cphoto"
     private val placeDetailApiUrl: String
     private val placePhotoApiUrl: String
     private val apiKey: String
     private val storePhotoMaxHeight: Int
-    private val map: GoogleMap
-    private val infoWindowView: View
 
-    constructor(getPlaceIdByMarkerId: (String) -> String,
+    constructor(onDownloadCompleted: (StoreInfo) -> Unit,
                 placeDetailApiUrl: String,
                 placePhotoApiUrl: String,
                 apiKey: String,
-                storePhotoMaxHeight: Int,
-                infoWindowView: View,
-                map: GoogleMap) {
-        this.getPlaceIdByMarkerId = getPlaceIdByMarkerId
+                storePhotoMaxHeight: Int) {
+        this.onDownloadCompleted = onDownloadCompleted
         this.placeDetailApiUrl = placeDetailApiUrl
         this.placePhotoApiUrl = placePhotoApiUrl
         this.apiKey = apiKey
         this.storePhotoMaxHeight = storePhotoMaxHeight
-        this.infoWindowView = infoWindowView
-        this.map = map
     }
 
-    fun displayStoreInfoWindow(marker: Marker) {
-        val placeId = getPlaceIdByMarkerId(marker.id)
+    fun asyncDisplayStoreInfoWindow(placeId: String) {
         val urlStr = placeDetailApiUrl + "?" +
                 "place_id" + "=" + placeId + "&" +
                 "key" + "=" + apiKey + "&" +
@@ -65,7 +60,7 @@ class DisplayStoreInfoWindowLogic {
                 .sendGetRequest(URL(urlStr))
 
             withContext(Dispatchers.Main) {
-                onReceivedStoreDetail(response, marker)
+                onReceivedStoreDetail(response)
             }
         }
     }
@@ -75,7 +70,7 @@ class DisplayStoreInfoWindowLogic {
      * If photo reference is exist in the response, download it by Google Place Photo API
      * @param responseOfStoreDetail response of the store detail from the Google PlaceDetail API
      */
-    private fun onReceivedStoreDetail(responseOfStoreDetail: JSONObject, marker: Marker) {
+    private fun onReceivedStoreDetail(responseOfStoreDetail: JSONObject) {
         try {
             // parse store detail from API response
             val storeDetail = responseOfStoreDetail.getJSONObject("result")
@@ -97,13 +92,14 @@ class DisplayStoreInfoWindowLogic {
 
                 withContext(Dispatchers.Main) {
                     // set and show the info window
-                    showInfoWindow(name,
-                        address,
-                        phoneNumber,
-                        website,
-                        openingHour,
-                        photo,
-                        marker
+                    onDownloadCompleted(
+                        StoreInfo(name,
+                            address,
+                            phoneNumber,
+                            website,
+                            openingHour,
+                            photo
+                        )
                     )
                 }
             }
@@ -114,28 +110,6 @@ class DisplayStoreInfoWindowLogic {
         catch (e: Exception) {
             Log.e("Fail to parse the responded store detail", e.toString())
         }
-    }
-
-    /**
-     * Set the content of the info window and then show it
-     * Also, center the map camera on the marker
-     */
-    private fun showInfoWindow(name: String,
-                               address: String,
-                               phoneNumber: String,
-                               website: String,
-                               openingHour: String,
-                               photo: Bitmap?,
-                               marker: Marker) {
-        setInfoWindowView(name,
-            address,
-            phoneNumber,
-            website,
-            openingHour,
-            photo
-        )
-        map.moveCamera(CameraUpdateFactory.newLatLng(marker.position))
-        marker.showInfoWindow()
     }
 
     /**
@@ -161,26 +135,6 @@ class DisplayStoreInfoWindowLogic {
             Log.e("Download store photo fail", e.toString())
             return null
         }
-    }
-
-    /**
-     * Set the contents in the info window
-     */
-    private fun setInfoWindowView(name: String,
-                                  address: String,
-                                  phoneNumber: String,
-                                  website: String,
-                                  openingHour: String,
-                                  photo: Bitmap?
-    ) {
-        if (photo != null) {
-            infoWindowView.findViewById<ImageView>(R.id.store_photo).setImageBitmap(photo)
-        }
-        infoWindowView.findViewById<TextView>(R.id.store_name).text = name
-        infoWindowView.findViewById<TextView>(R.id.store_address).text = address
-        infoWindowView.findViewById<TextView>(R.id.store_phone_number).text = phoneNumber
-        infoWindowView.findViewById<TextView>(R.id.store_opening_hour).text = "Opens at " +openingHour
-        infoWindowView.findViewById<TextView>(R.id.store_website).text = website
     }
 
     /**
