@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "storage_capacity")
 class StorageCapacityModel(
-    @ColumnInfo(name = "productId")
+    @ColumnInfo(name = "product_id")
     var ProductId: Int,
 
     @ColumnInfo(name = "storage_capacity")

@@ -9,8 +9,8 @@ class PhoneColourModel(
     @ColumnInfo(name = "product_id")
     var ProductId: Int,
 
-    @ColumnInfo(name = "phone_colour")
-    var PhoneColour: String
+    @ColumnInfo(name = "colour")
+    var Colour: String
 )
 {
     @PrimaryKey(autoGenerate = true)

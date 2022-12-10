@@ -6,6 +6,6 @@ import androidx.room.Query
 
 @Dao
 interface StorageCapacityDao {
-    @Query("SELECT * FROM storage_capacity WHERE ProductId = :productId")
+    @Query("SELECT * FROM storage_capacity WHERE product_id = :productId")
     fun getStorageCapacities(productId: Int): LiveData<List<StorageCapacityModel>>?
 }
