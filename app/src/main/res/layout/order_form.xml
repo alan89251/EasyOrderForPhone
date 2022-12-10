@@ -85,6 +85,25 @@
         style="@style/order_form_input_order_date_style"
         android:hint="dd/MM/yyyy"/>
 
+    <TextView
+        style="@style/color_spinner_title_style"
+        android:id="@+id/color_spinner_title"
+        android:text="@string/phone_order_title_color" />
+
+    <Spinner
+        style="@style/color_spinner_style"
+        android:id="@+id/color_spinner"
+        android:prompt="@string/color_spinner_prompt" />
+
+    <TextView
+        android:id="@+id/storage_capacity_radio_group_title"
+        style="@style/storage_capacity_radio_group_title_style"
+        android:text="@string/phone_order_title_storage_capacity" />
+
+    <RadioGroup
+        style="@style/storage_capacity_radio_group_style"
+        android:id="@+id/storage_capacity_radio_group" />
+
     <Button
         android:id="@+id/move_to_shop_choosing_btn"
         style="@style/move_to_shop_choosing_btn_style"

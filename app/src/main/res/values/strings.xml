@@ -50,4 +50,7 @@
     <string name="switch_to_standard_text">Standard</string>
     <string name="switch_to_satellite_text">Satellite</string>
     <string name="switch_to_hybrid_text">Hybrid</string>
+    <string name="color_spinner_prompt">Choose a color</string>
+    <string name="phone_order_title_color">Color:</string>
+    <string name="phone_order_title_storage_capacity">Storage capacity:</string>
 </resources>

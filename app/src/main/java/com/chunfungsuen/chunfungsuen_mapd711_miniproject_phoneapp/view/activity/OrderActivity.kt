@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup
 import android.widget.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -14,17 +15,23 @@ import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.R
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.customer.CustomerRepository
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.order.OrderModel
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.order.OrderRepository
+import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.phone_colour.PhoneColourModel
+import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.phone_colour.PhoneColourRepository
+import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.phone_price.PhonePriceRepository
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.product.ProductModel
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.product.ProductRepository
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.storage_capacity.StorageCapacityModel
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.storage_capacity.StorageCapacityRepository
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.database.PhoneOrderServiceDatabase
-import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view.component.StorageCapacityRadioGroup
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view.view_adapter.ProductListViewAdapter
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.customer.CustomerViewModel
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.customer.CustomerViewModelFactory
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.order.OrderViewModel
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.order.OrderViewModelFactory
+import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.phone_colour.PhoneColourViewModel
+import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.phone_colour.PhoneColourViewModelFactory
+import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.phone_price.PhonePriceViewModel
+import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.phone_price.PhonePriceViewModelFactory
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.product.ProductViewModel
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.product.ProductViewModelFactory
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.storage_capacity.StorageCapacityViewModel
@@ -40,7 +47,8 @@ class OrderActivity : AppCompatActivity() {
     private lateinit var customerViewModel: CustomerViewModel
     private lateinit var orderViewModel: OrderViewModel
     private lateinit var storageCapacityViewModel: StorageCapacityViewModel
-    private lateinit var storageCapacityRadioGroup: StorageCapacityRadioGroup
+    private lateinit var phoneColourViewModel: PhoneColourViewModel
+    private lateinit var phonePriceViewModel: PhonePriceViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -103,6 +111,24 @@ class OrderActivity : AppCompatActivity() {
             )
         ).get(StorageCapacityViewModel::class.java)
 
+        // create view model for phone colour
+        phoneColourViewModel = ViewModelProvider(this,
+            PhoneColourViewModelFactory(
+                PhoneColourRepository(
+                    phoneOrderServiceDatabase!!.phoneColourDao()
+                )
+            )
+        ).get(PhoneColourViewModel::class.java)
+
+        // create view model for phone price
+        phonePriceViewModel = ViewModelProvider(this,
+            PhonePriceViewModelFactory(
+                PhonePriceRepository(
+                    phoneOrderServiceDatabase!!.phonePriceDao()
+                )
+            )
+        ).get(PhonePriceViewModel::class.java)
+
         // loading data from repository
         productViewModel.initProductList()
         productViewModel.productList!!.observe(this, ::updateProductList)
@@ -146,10 +172,13 @@ class OrderActivity : AppCompatActivity() {
 
         // get storage capacity list of the product from repository
         // and use it to set the radio group to let user choose a capacity
-        storageCapacityRadioGroup = StorageCapacityRadioGroup(this)
         storageCapacityViewModel.getStorageCapacities(selectedProduct.ProductId!!)!!
             .observe(this, ::setStorageCapacityRadioGroupBtns)
-        findViewById<LinearLayout>(R.id.order_form).addView(storageCapacityRadioGroup.getView())
+
+        // get phone colour list of the product from repository
+        // and use it to set the spinner to let user choose a colour
+        phoneColourViewModel.getPhoneColours(selectedProduct.ProductId!!)!!
+            .observe(this, ::setColourSpinnerContent)
 
         findViewById<TextView>(R.id.order_form_phone_model).text = selectedProduct.PhoneModel
         findViewById<TextView>(R.id.order_form_product_id).text = selectedProduct.ProductId.toString()
@@ -212,9 +241,46 @@ class OrderActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Set the storage capacity options in the radio group
+     */
     private fun setStorageCapacityRadioGroupBtns(storageCapacities: List<StorageCapacityModel>) {
+        val storageCapacityRadioGroup = findViewById<RadioGroup>(R.id.storage_capacity_radio_group)
         for (storageCapacity in storageCapacities) {
-            storageCapacityRadioGroup.addStorageCapacity(storageCapacity.StorageCapacity)
+            storageCapacityRadioGroup.addView(createStorageCapacityRadioBtn(storageCapacity.StorageCapacity))
         }
+    }
+
+    /**
+     * create radio button for storage capacity option
+     */
+    private fun createStorageCapacityRadioBtn(storageCapacity: String): RadioButton {
+        val radioButton = RadioButton(this)
+        radioButton.layoutParams = ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT)
+        radioButton.setTextColor(resources.getColor(R.color.storageRadioBtnTextColor))
+        radioButton.textSize = resources.getDimension(R.dimen.storageRadioBtnTextSize)
+        radioButton.text = storageCapacity
+        return radioButton
+    }
+
+    /**
+     * add options of phone colour in the spinner
+     * also, set the prompt text of the spinner
+     */
+    private fun setColourSpinnerContent(colours: List<PhoneColourModel>) {
+        val spinnerContents = ArrayList<String>(colours.size)
+        for (colour in colours) {
+            spinnerContents.add(colour.Colour)
+        }
+
+        val colourSpinner = findViewById<Spinner>(R.id.color_spinner)
+        colourSpinner.prompt = resources.getString(R.string.color_spinner_prompt)
+        colourSpinner.adapter = ArrayAdapter(
+            this,
+            android.R.layout.simple_spinner_dropdown_item,
+            spinnerContents
+        )
     }
 }

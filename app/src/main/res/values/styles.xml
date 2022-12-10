@@ -326,4 +326,41 @@
         <item name="android:textSize">@dimen/btnSwitchMapTypeTextSize</item>
         <item name="android:layout_marginHorizontal">@dimen/btnSwitchMapTypeMarginHorizontal</item>
     </style>
+
+    <style name="color_spinner_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="storage_capacity_radio_group_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
+
+    <style name="storage_capacity_radio_button_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/storageRadioBtnTextColor</item>
+        <item name="android:textSize">@dimen/storageRadioBtnTextSize</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
+
+    <style name="color_spinner_title_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/storageAndColorSelectTitleTextSize</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/storageAndColorSelectTitleTextColor</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
+
+    <style name="storage_capacity_radio_group_title_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/storageAndColorSelectTitleTextSize</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/storageAndColorSelectTitleTextColor</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
 </resources>

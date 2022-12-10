@@ -48,4 +48,6 @@
     <dimen name="btnBarSwitchMapTypeMarginTop">20dp</dimen>
     <dimen name="btnSwitchMapTypeMarginHorizontal">5dp</dimen>
     <dimen name="btnSwitchMapTypeTextSize">16sp</dimen>
+    <dimen name="storageRadioBtnTextSize">24sp</dimen>
+    <dimen name="storageAndColorSelectTitleTextSize">34sp</dimen>
 </resources>

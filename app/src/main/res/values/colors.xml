@@ -39,4 +39,6 @@
     <color name="btnSwitchMapTypeDisabledTextColor">#FFBDBDBD</color>
     <color name="locationIndicatorFillColor">#1565C0</color>
     <color name="locationIndicatorStrokeColor">#1565C0</color>
+    <color name="storageRadioBtnTextColor">#303F9F</color>
+    <color name="storageAndColorSelectTitleTextColor">#E64A19</color>
 </resources>
