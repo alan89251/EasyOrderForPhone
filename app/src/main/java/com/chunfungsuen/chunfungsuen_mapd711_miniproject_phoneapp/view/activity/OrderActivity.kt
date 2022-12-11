@@ -183,8 +183,6 @@ class OrderActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.order_form_phone_model).text = selectedProduct.PhoneModel
         findViewById<TextView>(R.id.order_form_product_id).text = selectedProduct.ProductId.toString()
         findViewById<TextView>(R.id.order_form_phone_make).text = selectedProduct.PhoneMake
-        findViewById<TextView>(R.id.order_form_phone_color).text = selectedProduct.PhoneColor
-        findViewById<TextView>(R.id.order_form_storage_capacity).text = selectedProduct.StorageCapacity
 
         // config observer for UI
         val priceTextView = findViewById<TextView>(R.id.order_form_price)
