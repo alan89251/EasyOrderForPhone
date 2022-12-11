@@ -190,6 +190,9 @@ class OrderActivity : AppCompatActivity() {
             priceTextView.text = "$" + it.toString()
         }
 
+        // config event handlers for UIs
+        findViewById<RadioGroup>(R.id.storage_capacity_radio_group).setOnCheckedChangeListener(getPriceFromRepository)
+
         findViewById<Button>(R.id.move_to_shop_choosing_btn).setOnClickListener {
             val orderDateStr = findViewById<EditText>(R.id.order_form_order_date).text.toString()
             // validation
@@ -218,14 +221,6 @@ class OrderActivity : AppCompatActivity() {
             val selectedStorageCapacity = findViewById<RadioButton>(storageCapacityRadioGroup.checkedRadioButtonId).text.toString()
             val colourSpinnerSelectedView = findViewById<Spinner>(R.id.color_spinner).selectedView as TextView
             val selectedColour = colourSpinnerSelectedView.text.toString()
-
-            // Clear the observers of the live data of the previous query result
-            phonePriceViewModel.priceQueryResult?.removeObservers(this)
-            // get the price of the phone with the selected storage capacity from the repository
-            phonePriceViewModel.priceQueryResult = phonePriceViewModel.getPhonePrice(selectedProduct.ProductId!!, selectedStorageCapacity)
-            phonePriceViewModel.priceQueryResult?.observe(this) {
-                phonePriceViewModel.price.value = it.Price
-            }
 
             // First, get the customer id from repository by user name. Then, save order to repository
             customerViewModel.customer!!.observe(this, Observer {
@@ -308,5 +303,19 @@ class OrderActivity : AppCompatActivity() {
             android.R.layout.simple_spinner_dropdown_item,
             spinnerContents
         )
+    }
+
+    // get the price of the phone with the selected storage capacity from the repository
+    private val getPriceFromRepository = RadioGroup.OnCheckedChangeListener { radioGroup, i ->
+        // Clear the observers of the live data of the previous query result
+        phonePriceViewModel.priceQueryResult?.removeObservers(this)
+        // get the price of the phone with the selected storage capacity from the repository
+        phonePriceViewModel.priceQueryResult = phonePriceViewModel.getPhonePrice(
+            selectedProduct.ProductId!!,
+            (radioGroup.getChildAt(i - 1) as RadioButton).text.toString()
+        )
+        phonePriceViewModel.priceQueryResult?.observe(this) {
+            phonePriceViewModel.price.value = it.Price
+        }
     }
 }
