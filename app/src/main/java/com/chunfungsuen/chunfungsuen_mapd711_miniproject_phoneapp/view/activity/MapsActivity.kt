@@ -24,16 +24,14 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.databinding.ActivityMapsBinding
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.google_map_utils.GoogleAPIGetRequestClient
+import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.google_map_utils.GoogleMapAPIPolylineDecoder
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.logic.DownloadStoreInfoLogic
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view.view_adapter.PhoneStoreInfoWindowAdapter
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.order.OrderViewModel
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.order.OrderViewModelFactory
-import com.google.android.gms.maps.model.CircleOptions
-import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -51,6 +49,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private var selectedStore = DownloadStoreInfoLogic.StoreInfo()
     private lateinit var orderViewModel: OrderViewModel
     private lateinit var order: OrderModel
+    private lateinit var deviceLocation: Location
+    private var polylineOfRouteToSelectedStore: Polyline? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -148,17 +148,17 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
      * Send a Google API request to get the stores selling the user selected brand of phone
      */
     private fun onReceievedDeviceLocation(location: Location) {
-        configMapContentByDeviceLocation(location)
-        searchStoresSellingUserSelectedBrand(location)
+        deviceLocation = location
+        configMapContentByDeviceLocation()
+        searchStoresSellingUserSelectedBrand()
     }
 
     /**
      * Search the stores selling the user selected brand of phone
      */
-    private fun searchStoresSellingUserSelectedBrand(location: Location) {
-        val latLngStr = String.format("%f%%2C%f", location.latitude, location.longitude)
+    private fun searchStoresSellingUserSelectedBrand() {
         val urlStr = resources.getString(R.string.google_place_search_api_url) + "?" +
-                "location" + "=" + latLngStr + "&" +
+                "location" + "=" + String.format("%f%%2C%f", deviceLocation.latitude, deviceLocation.longitude) + "&" +
                 "query" + "=" + String.format("stores%%2Cselling%%2C%s%%2Cphones", selectedBrand) + "&" +
                 "radius" + "=" + resources.getInteger(R.integer.searching_radius_for_stores).toString() + "&" +
                 "key" + "=" + resources.getString(R.string.google_api_key)
@@ -176,8 +176,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
      * Set the displaying region of the map to the surrounding of the current location
      * Add a circle on the map to indicate the location of the device
      */
-    private fun configMapContentByDeviceLocation(location: Location) {
-        val mapObj = LatLng(location.latitude, location.longitude)
+    private fun configMapContentByDeviceLocation() {
+        val mapObj = LatLng(deviceLocation.latitude, deviceLocation.longitude)
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mapObj, 15f))
         mMap.addCircle(
             CircleOptions()
@@ -277,6 +277,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
      */
     private fun setMapOnMarkerClickListener(infoWindowView: View) {
         mMap.setOnMarkerClickListener { marker ->
+            // remove any existing polyline of route to selected store on the map
+            polylineOfRouteToSelectedStore?.remove()
+
             DownloadStoreInfoLogic(
                 { onDownloadStoreInfoCompleted(it, marker, infoWindowView) },
                 resources.getString(R.string.google_place_detail_api_url),
@@ -293,7 +296,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     /**
      * 1. Display info window of the store
      * 2. Display "select store button"
-     * 3. save the current selected store name in memory
+     * 3. Save the current selected store name in memory
+     * 4. Download the route from device location to the selected store
      */
     private fun onDownloadStoreInfoCompleted(storeInfo: DownloadStoreInfoLogic.StoreInfo,
                                              marker: Marker,
@@ -301,6 +305,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         showInfoWindow(storeInfo, marker, infoWindowView)
         selectedStore = storeInfo
         findViewById<Button>(R.id.select_shop_btn).visibility = Button.VISIBLE
+        asyncDownloadRouteToStore(marker.position)
     }
 
     /**
@@ -348,4 +353,58 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val intent = Intent(this@MapsActivity, UpdateOrderActivity::class.java)
         startActivity(intent)
     }
+
+    /**
+     * download route to the store
+     */
+    private fun asyncDownloadRouteToStore(storeLocation: LatLng) {
+        val urlStr = resources.getString(R.string.google_directions_api_url) + "?" +
+                "origin" + "=" + String.format("%f%%2C%f", deviceLocation.latitude, deviceLocation.longitude) + "&" +
+                "destination" + "=" + String.format("%f%%2C%f", storeLocation.latitude, storeLocation.longitude) + "&" +
+                "key" + "=" + resources.getString(R.string.google_api_key)
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = GoogleAPIGetRequestClient()
+                .sendGetRequest(URL(urlStr))
+
+            withContext(Dispatchers.Main) {
+                onReceivedRouteToStore(response)
+            }
+        }
+    }
+
+    /**
+     * Plot the route to the store on the map
+     * @param responseFromApi response that received from Google Directions API
+     */
+    private fun onReceivedRouteToStore(responseFromApi: JSONObject) {
+        val route: List<LatLng> = parseRoute(responseFromApi)
+        polylineOfRouteToSelectedStore = mMap.addPolyline(PolylineOptions()
+            .addAll(route))
+    }
+
+    /**
+     * parse route from the Google Directions API response
+     */
+    private fun parseRoute(responseFromApi: JSONObject): List<LatLng> {
+        val steps = responseFromApi.getJSONArray("routes")
+            .getJSONObject(0)
+            .getJSONArray("legs")
+            .getJSONObject(0)
+            .getJSONArray("steps")
+        val decoder = GoogleMapAPIPolylineDecoder()
+        var route = ArrayList<LatLng>()
+        val lastIdxOfSteps = steps.length() - 1
+        for (i in 0 .. lastIdxOfSteps) {
+            route.addAll(
+                decoder.decode(
+                    steps.getJSONObject(i)
+                        .getJSONObject("polyline")
+                        .getString("points")
+                )
+            )
+        }
+
+        return route
+    }
+
 }

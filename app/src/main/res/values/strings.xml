@@ -52,6 +52,7 @@
     <string name="google_place_search_api_url">https://maps.googleapis.com/maps/api/place/textsearch/json</string>
     <string name="google_place_detail_api_url">https://maps.googleapis.com/maps/api/place/details/json</string>
     <string name="google_place_photo_api_url">https://maps.googleapis.com/maps/api/place/photo</string>
+    <string name="google_directions_api_url">https://maps.googleapis.com/maps/api/directions/json</string>
     <string name="switch_to_standard_text">Standard</string>
     <string name="switch_to_satellite_text">Satellite</string>
     <string name="switch_to_hybrid_text">Hybrid</string>
