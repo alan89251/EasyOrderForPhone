@@ -27,6 +27,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.databinding.ActivityMapsBinding
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.google_map_utils.GoogleAPIGetRequestClient
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.google_map_utils.GoogleMapAPIPolylineDecoder
+import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.logic.DownloadRouteToStoreLogic
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.logic.DownloadStoreInfoLogic
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view.view_adapter.PhoneStoreInfoWindowAdapter
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.order.OrderViewModel
@@ -305,7 +306,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         showInfoWindow(storeInfo, marker, infoWindowView)
         selectedStore = storeInfo
         findViewById<Button>(R.id.select_shop_btn).visibility = Button.VISIBLE
-        asyncDownloadRouteToStore(marker.position)
+        DownloadRouteToStoreLogic(
+            ::onReceivedRouteToStore,
+            resources.getString(R.string.google_directions_api_url),
+            resources.getString(R.string.google_api_key)
+        )
+            .asyncDownloadRouteToStore(marker.position, LatLng(deviceLocation.latitude, deviceLocation.longitude))
     }
 
     /**
@@ -355,56 +361,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     /**
-     * download route to the store
-     */
-    private fun asyncDownloadRouteToStore(storeLocation: LatLng) {
-        val urlStr = resources.getString(R.string.google_directions_api_url) + "?" +
-                "origin" + "=" + String.format("%f%%2C%f", deviceLocation.latitude, deviceLocation.longitude) + "&" +
-                "destination" + "=" + String.format("%f%%2C%f", storeLocation.latitude, storeLocation.longitude) + "&" +
-                "key" + "=" + resources.getString(R.string.google_api_key)
-        CoroutineScope(Dispatchers.IO).launch {
-            val response = GoogleAPIGetRequestClient()
-                .sendGetRequest(URL(urlStr))
-
-            withContext(Dispatchers.Main) {
-                onReceivedRouteToStore(response)
-            }
-        }
-    }
-
-    /**
      * Plot the route to the store on the map
-     * @param responseFromApi response that received from Google Directions API
      */
-    private fun onReceivedRouteToStore(responseFromApi: JSONObject) {
-        val route: List<LatLng> = parseRoute(responseFromApi)
+    private fun onReceivedRouteToStore(route: List<LatLng>) {
         polylineOfRouteToSelectedStore = mMap.addPolyline(PolylineOptions()
             .addAll(route))
     }
-
-    /**
-     * parse route from the Google Directions API response
-     */
-    private fun parseRoute(responseFromApi: JSONObject): List<LatLng> {
-        val steps = responseFromApi.getJSONArray("routes")
-            .getJSONObject(0)
-            .getJSONArray("legs")
-            .getJSONObject(0)
-            .getJSONArray("steps")
-        val decoder = GoogleMapAPIPolylineDecoder()
-        var route = ArrayList<LatLng>()
-        val lastIdxOfSteps = steps.length() - 1
-        for (i in 0 .. lastIdxOfSteps) {
-            route.addAll(
-                decoder.decode(
-                    steps.getJSONObject(i)
-                        .getJSONObject("polyline")
-                        .getString("points")
-                )
-            )
-        }
-
-        return route
-    }
-
 }
