@@ -29,6 +29,7 @@ import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.google_map_uti
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.google_map_utils.GoogleMapAPIPolylineDecoder
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.logic.DownloadRouteToStoreLogic
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.logic.DownloadStoreInfoLogic
+import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.logic.GetDeviceLocationLogic
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view.view_adapter.PhoneStoreInfoWindowAdapter
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.order.OrderViewModel
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.order.OrderViewModelFactory
@@ -44,7 +45,6 @@ import java.net.URL
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
-    private var isUpdateStoreInfoOnMap = true // control whether to update the store info shown on the map
     private var selectedBrand = "" // user selected brand of phone
     private var markerIdPlaceIdMap = HashMap<String, String>() // key: marker id, value: place id
     private var selectedStore = DownloadStoreInfoLogic.StoreInfo()
@@ -102,7 +102,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap.setInfoWindowAdapter(phoneStoreInfoWindowAdapter)
         setMapOnMarkerClickListener(infoWindowView)
 
-        requestLocation() // get the current location
+        GetDeviceLocationLogic(
+            getSystemService(LOCATION_SERVICE) as LocationManager,
+            this
+        )
+            .requestLocation(::onReceievedDeviceLocation)
     }
 
     /**
@@ -112,35 +116,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
      */
     private fun getPlaceIdByMarkerId(markerId: String) : String {
         return markerIdPlaceIdMap[markerId] ?: ""
-    }
-
-    // listener to receive location
-    private val locationListener: LocationListener = object : LocationListener {
-        override fun onLocationChanged(p0: Location) {
-            if (isUpdateStoreInfoOnMap) {
-                isUpdateStoreInfoOnMap = false // only update the info once
-                onReceievedDeviceLocation(p0)
-            }
-        }
-    }
-
-    /**
-     * Send a request for location
-     */
-    private fun requestLocation() {
-        val locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
-        val ONE_HOUR_IN_MS = 3600000L // interval for location update, set to 1 hour to prevent frequent update
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            return
-        }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, ONE_HOUR_IN_MS, 0F, locationListener)
     }
 
     /**
