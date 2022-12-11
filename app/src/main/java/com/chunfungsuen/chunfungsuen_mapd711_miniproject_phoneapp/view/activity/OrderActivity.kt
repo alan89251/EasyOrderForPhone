@@ -192,57 +192,7 @@ class OrderActivity : AppCompatActivity() {
 
         // config event handlers for UIs
         findViewById<RadioGroup>(R.id.storage_capacity_radio_group).setOnCheckedChangeListener(getPriceFromRepository)
-
-        findViewById<Button>(R.id.move_to_shop_choosing_btn).setOnClickListener {
-            val orderDateStr = findViewById<EditText>(R.id.order_form_order_date).text.toString()
-            // validation
-            // use LocalDate to parse the string. If it throws exception, mean the date format is invalid
-            try {
-                val orderDate = LocalDate.parse(orderDateStr, DateTimeFormatter.ofPattern("dd/MM/yyyy"))
-                val currentDate = LocalDate.now() // get current date
-                if (orderDate.isBefore(currentDate)) {
-                    Toast.makeText(this@OrderActivity, "Order date cannot earlier than current date", Toast.LENGTH_SHORT)
-                        .show()
-                    return@setOnClickListener
-                }
-            }
-            catch (e: DateTimeParseException) {
-                Toast.makeText(this@OrderActivity, "Order date is not valid", Toast.LENGTH_SHORT)
-                    .show()
-                return@setOnClickListener
-            }
-            val storageCapacityRadioGroup = findViewById<RadioGroup>(R.id.storage_capacity_radio_group)
-            // remind the customer to select a storage if he/she doesn't select one
-            if (storageCapacityRadioGroup.checkedRadioButtonId == -1) {
-                Toast.makeText(this@OrderActivity, "Please select a storage capacity", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            val selectedStorageCapacity = findViewById<RadioButton>(storageCapacityRadioGroup.checkedRadioButtonId).text.toString()
-            val colourSpinnerSelectedView = findViewById<Spinner>(R.id.color_spinner).selectedView as TextView
-            val selectedColour = colourSpinnerSelectedView.text.toString()
-
-            // First, get the customer id from repository by user name. Then, save order to repository
-            customerViewModel.customer!!.observe(this, Observer {
-                // fill the order
-                val order = OrderModel(
-                    it.CustId!!,
-                    selectedProduct.ProductId!!,
-                    selectedColour,
-                    selectedStorageCapacity,
-                    orderDateStr,
-                    "",
-                    "",
-                    resources.getString(R.string.order_status_text_ordered)
-                )
-
-                // Navigate to map activity for selecting the phone store
-                val intent = Intent(this@OrderActivity, MapsActivity::class.java)
-                intent.putExtra("order", order)
-                intent.putExtra("brand", selectedProduct.PhoneMake)
-                startActivity(intent)
-            })
-        }
+        findViewById<Button>(R.id.move_to_shop_choosing_btn).setOnClickListener(onMoveToShopChoosingBtnClicked)
     }
 
     /**
@@ -303,6 +253,58 @@ class OrderActivity : AppCompatActivity() {
             android.R.layout.simple_spinner_dropdown_item,
             spinnerContents
         )
+    }
+
+    // handle the onClick event of move_to_shop_choosing_btn
+    private val onMoveToShopChoosingBtnClicked = View.OnClickListener {
+        val orderDateStr = findViewById<EditText>(R.id.order_form_order_date).text.toString()
+        // validation
+        // use LocalDate to parse the string. If it throws exception, mean the date format is invalid
+        try {
+            val orderDate = LocalDate.parse(orderDateStr, DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+            val currentDate = LocalDate.now() // get current date
+            if (orderDate.isBefore(currentDate)) {
+                Toast.makeText(this@OrderActivity, "Order date cannot earlier than current date", Toast.LENGTH_SHORT)
+                    .show()
+                return@OnClickListener
+            }
+        }
+        catch (e: DateTimeParseException) {
+            Toast.makeText(this@OrderActivity, "Order date is not valid", Toast.LENGTH_SHORT)
+                .show()
+            return@OnClickListener
+        }
+        val storageCapacityRadioGroup = findViewById<RadioGroup>(R.id.storage_capacity_radio_group)
+        // remind the customer to select a storage if he/she doesn't select one
+        if (storageCapacityRadioGroup.checkedRadioButtonId == -1) {
+            Toast.makeText(this@OrderActivity, "Please select a storage capacity", Toast.LENGTH_SHORT).show()
+            return@OnClickListener
+        }
+
+        val selectedStorageCapacity = findViewById<RadioButton>(storageCapacityRadioGroup.checkedRadioButtonId).text.toString()
+        val colourSpinnerSelectedView = findViewById<Spinner>(R.id.color_spinner).selectedView as TextView
+        val selectedColour = colourSpinnerSelectedView.text.toString()
+
+        // First, get the customer id from repository by user name. Then, save order to repository
+        customerViewModel.customer!!.observe(this, Observer {
+            // fill the order
+            val order = OrderModel(
+                it.CustId!!,
+                selectedProduct.ProductId!!,
+                selectedColour,
+                selectedStorageCapacity,
+                orderDateStr,
+                "",
+                "",
+                resources.getString(R.string.order_status_text_ordered)
+            )
+
+            // Navigate to map activity for selecting the phone store
+            val intent = Intent(this@OrderActivity, MapsActivity::class.java)
+            intent.putExtra("order", order)
+            intent.putExtra("brand", selectedProduct.PhoneMake)
+            startActivity(intent)
+        })
     }
 
     // get the price of the phone with the selected storage capacity from the repository
