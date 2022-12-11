@@ -134,6 +134,7 @@ class UpdateOrderActivity : AppCompatActivity() {
             ::getProductByIdAsync,
             ::getPriceAsync,
             ::updateOrder,
+            ::onCheckStoreBtnClicked,
             this,
             android.R.layout.simple_list_item_1,
             orderList
@@ -161,5 +162,14 @@ class UpdateOrderActivity : AppCompatActivity() {
      */
     private fun updateOrder(order: OrderModel) {
         orderViewModel.updateOrder(order)
+    }
+
+    /**
+     * Navigate to Check Store Activity to check the location and the route to the phone store
+     * of this order
+     */
+    private fun onCheckStoreBtnClicked(storePlaceId: String) {
+        val intent = Intent(this@UpdateOrderActivity, CheckStoreActivity::class.java)
+        startActivity(intent)
     }
 }

@@ -109,8 +109,19 @@
         </TableRow>
     </TableLayout>
 
-    <ImageButton
-        android:id="@+id/cancel_order_btn"
-        style="@style/cancel_order_btn_style"
-        android:src="@drawable/x_circle"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/cancel_order_btn"
+            style="@style/cancel_order_btn_style"
+            android:src="@drawable/x_circle"/>
+
+        <ImageButton
+            android:id="@+id/check_store_btn"
+            style="@style/check_store_btn_style"
+            android:src="@drawable/geo_alt"/>
+    </LinearLayout>
 </LinearLayout>
