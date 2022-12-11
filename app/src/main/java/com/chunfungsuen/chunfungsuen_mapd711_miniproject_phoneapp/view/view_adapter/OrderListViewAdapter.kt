@@ -12,6 +12,7 @@ import androidx.core.view.isVisible
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.R
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.customer.CustomerModel
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.order.OrderModel
+import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.phone_price.PhonePriceModel
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.product.ProductModel
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatterBuilder
@@ -19,6 +20,7 @@ import java.time.format.DateTimeFormatterBuilder
 class OrderListViewAdapter (
     private val customer: CustomerModel,
     private val getProductByIdAsync: (Int, (ProductModel) -> Unit) -> Unit,
+    private val getPriceAsync: (Int, String, (PhonePriceModel) -> Unit) -> Unit,
     private val updateOrder: (OrderModel) -> Unit,
     context: Context,
     resource: Int,
@@ -37,6 +39,8 @@ class OrderListViewAdapter (
         itemView.findViewById<TextView>(R.id.order_list_item_product_id).text = order.ProductId.toString()
         itemView.findViewById<TextView>(R.id.order_list_item_order_date).text = order.OrderDate
         itemView.findViewById<TextView>(R.id.order_list_item_status).text = order.Status
+        itemView.findViewById<TextView>(R.id.order_list_item_phone_color).text = order.Colour
+        itemView.findViewById<TextView>(R.id.order_list_item_storage_capacity).text = order.StorageCapacity
         // config cancel order button
         val cancelOrderBtn = itemView.findViewById<ImageButton>(R.id.cancel_order_btn)
         cancelOrderBtn.setOnClickListener {
@@ -49,15 +53,26 @@ class OrderListViewAdapter (
         }
 
         // get product info from repository and then show them in the UI
-        getProductByIdAsync(order.ProductId, {
-            itemView.findViewById<TextView>(R.id.order_list_item_phone_model).text = it.PhoneModel
-            itemView.findViewById<TextView>(R.id.order_list_item_phone_make).text = it.PhoneMake
-            itemView.findViewById<TextView>(R.id.order_list_item_phone_color).text = order.Colour
-            itemView.findViewById<TextView>(R.id.order_list_item_storage_capacity).text = order.StorageCapacity
-            itemView.findViewById<TextView>(R.id.order_list_item_price).text = "$" + it.Price.toString()
-        })
+        getProductByIdAsync(order.ProductId, { onProductResult(itemView, it) })
+        // get phone price from repository and then show it in the UI
+        getPriceAsync(order.ProductId, order.StorageCapacity, { onPriceResult(itemView, it) })
 
         return itemView
+    }
+
+    /**
+     * Show product info in UI
+     */
+    private fun onProductResult(itemView: View, product: ProductModel) {
+        itemView.findViewById<TextView>(R.id.order_list_item_phone_model).text = product.PhoneModel
+        itemView.findViewById<TextView>(R.id.order_list_item_phone_make).text = product.PhoneMake
+    }
+
+    /**
+     * Show phone price in UI
+     */
+    private fun onPriceResult(itemView: View, price: PhonePriceModel) {
+        itemView.findViewById<TextView>(R.id.order_list_item_price).text = "$" + price.Price.toString()
     }
 
     private fun onCancelButtonClicked(order: OrderModel, itemView: View) {

@@ -13,6 +13,8 @@ import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.cus
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.customer.CustomerRepository
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.order.OrderModel
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.order.OrderRepository
+import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.phone_price.PhonePriceModel
+import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.phone_price.PhonePriceRepository
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.product.ProductModel
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.product.ProductRepository
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.database.PhoneOrderServiceDatabase
@@ -21,6 +23,8 @@ import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.cus
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.customer.CustomerViewModelFactory
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.order.OrderViewModel
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.order.OrderViewModelFactory
+import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.phone_price.PhonePriceViewModel
+import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.phone_price.PhonePriceViewModelFactory
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.product.ProductViewModel
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.product.ProductViewModelFactory
 
@@ -29,6 +33,7 @@ class UpdateOrderActivity : AppCompatActivity() {
     private lateinit var orderViewModel: OrderViewModel
     private lateinit var productViewModel: ProductViewModel
     private lateinit var orderListView: ListView
+    private lateinit var phonePriceViewModel: PhonePriceViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,6 +75,15 @@ class UpdateOrderActivity : AppCompatActivity() {
                 )
             )
         ).get(OrderViewModel::class.java)
+
+        // create view model for phone price
+        phonePriceViewModel = ViewModelProvider(this,
+            PhonePriceViewModelFactory(
+                PhonePriceRepository(
+                    phoneOrderServiceDatabase!!.phonePriceDao()
+                )
+            )
+        ).get(PhonePriceViewModel::class.java)
 
         // init order list in the view model
         orderViewModel.initOrderList()
@@ -118,6 +132,7 @@ class UpdateOrderActivity : AppCompatActivity() {
         orderListView.adapter = OrderListViewAdapter(
             customerViewModel.customer!!.value!!,
             ::getProductByIdAsync,
+            ::getPriceAsync,
             ::updateOrder,
             this,
             android.R.layout.simple_list_item_1,
@@ -131,6 +146,14 @@ class UpdateOrderActivity : AppCompatActivity() {
      */
     private fun getProductByIdAsync(productId: Int, onResult: (ProductModel) -> Unit) {
         productViewModel.getProductById(productId)!!.observe(this, onResult)
+    }
+
+    /**
+     * get phone price from repository async-ly
+     * After received the result, call the callback: "onResult"
+     */
+    private fun getPriceAsync(productId: Int, storageCapacity: String, onResult: (PhonePriceModel) -> Unit) {
+        phonePriceViewModel.getPhonePrice(productId, storageCapacity)!!.observe(this, onResult)
     }
 
     /**
