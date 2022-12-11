@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 
 class PhonePriceRepository(private val phonePriceDao: PhonePriceDao)
 {
-    fun getPhonePrice(productId: Int, storageCapacityId: Int): LiveData<PhonePriceModel>? {
-        return phonePriceDao.getPhonePrice(productId, storageCapacityId)
+    fun getPhonePrice(productId: Int, storageCapacity: String): LiveData<PhonePriceModel>? {
+        return phonePriceDao.getPhonePrice(productId, storageCapacity)
     }
 }

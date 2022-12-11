@@ -185,7 +185,12 @@ class OrderActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.order_form_phone_make).text = selectedProduct.PhoneMake
         findViewById<TextView>(R.id.order_form_phone_color).text = selectedProduct.PhoneColor
         findViewById<TextView>(R.id.order_form_storage_capacity).text = selectedProduct.StorageCapacity
-        findViewById<TextView>(R.id.order_form_price).text = "$" + selectedProduct.Price.toString()
+
+        // config observer for UI
+        val priceTextView = findViewById<TextView>(R.id.order_form_price)
+        phonePriceViewModel.price.observe(this) {
+            priceTextView.text = "$" + it.toString()
+        }
 
         findViewById<Button>(R.id.move_to_shop_choosing_btn).setOnClickListener {
             val orderDateStr = findViewById<EditText>(R.id.order_form_order_date).text.toString()
@@ -216,11 +221,17 @@ class OrderActivity : AppCompatActivity() {
             val colourSpinnerSelectedView = findViewById<Spinner>(R.id.color_spinner).selectedView as TextView
             val selectedColour = colourSpinnerSelectedView.text.toString()
 
+            // Clear the observers of the live data of the previous query result
+            phonePriceViewModel.priceQueryResult?.removeObservers(this)
+            // get the price of the phone with the selected storage capacity from the repository
+            phonePriceViewModel.priceQueryResult = phonePriceViewModel.getPhonePrice(selectedProduct.ProductId!!, selectedStorageCapacity)
+            phonePriceViewModel.priceQueryResult?.observe(this) {
+                phonePriceViewModel.price.value = it.Price
+            }
+
             // First, get the customer id from repository by user name. Then, save order to repository
             customerViewModel.customer!!.observe(this, Observer {
                 // fill the order
-
-
                 val order = OrderModel(
                     it.CustId!!,
                     selectedProduct.ProductId!!,

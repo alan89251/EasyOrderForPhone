@@ -9,8 +9,8 @@ class PhonePriceModel(
     @ColumnInfo(name = "product_id")
     var ProductId: Int,
 
-    @ColumnInfo(name = "storage_capacity_id")
-    var StorageCapacityId: Int,
+    @ColumnInfo(name = "storage_capacity")
+    var StorageCapacity: String,
 
     @ColumnInfo(name = "price")
     var Price: Double

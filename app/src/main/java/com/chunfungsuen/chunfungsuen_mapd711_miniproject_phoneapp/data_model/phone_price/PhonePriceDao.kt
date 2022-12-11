@@ -6,6 +6,6 @@ import androidx.room.Query
 
 @Dao
 interface PhonePriceDao {
-    @Query("SELECT * FROM phone_price WHERE product_id = :productId AND storage_capacity_id = :storageCapacityId")
-    fun getPhonePrice(productId: Int, storageCapacityId: Int): LiveData<PhonePriceModel>?
+    @Query("SELECT * FROM phone_price WHERE product_id = :productId AND storage_capacity = :storageCapacity")
+    fun getPhonePrice(productId: Int, storageCapacity: String): LiveData<PhonePriceModel>?
 }
