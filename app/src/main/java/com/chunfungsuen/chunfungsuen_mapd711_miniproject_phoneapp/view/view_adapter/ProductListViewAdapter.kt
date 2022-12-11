@@ -31,8 +31,6 @@ class ProductListViewAdapter (context: Context, resource: Int, objects: List<Pro
         itemView.findViewById<TextView>(R.id.product_list_item_phone_model).text = product!!.PhoneModel
         itemView.findViewById<TextView>(R.id.product_list_item_product_id).text = product!!.ProductId.toString()
         itemView.findViewById<TextView>(R.id.product_list_item_phone_make).text = product!!.PhoneMake
-        itemView.findViewById<TextView>(R.id.product_list_item_phone_color).text = product!!.PhoneColor
-        itemView.findViewById<TextView>(R.id.product_list_item_storage_capacity).text = product!!.StorageCapacity
         itemView.findViewById<TextView>(R.id.product_list_item_price).text = "$" + product!!.Price.toString()
         itemView.findViewById<ImageView>(R.id.product_list_item_photo).setImageBitmap(photo)
 
