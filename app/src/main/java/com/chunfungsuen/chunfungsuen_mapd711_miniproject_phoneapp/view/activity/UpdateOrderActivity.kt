@@ -170,6 +170,7 @@ class UpdateOrderActivity : AppCompatActivity() {
      */
     private fun onCheckStoreBtnClicked(storePlaceId: String) {
         val intent = Intent(this@UpdateOrderActivity, CheckStoreActivity::class.java)
+        intent.putExtra("storePlaceId", storePlaceId)
         startActivity(intent)
     }
 }

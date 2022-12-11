@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Log
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.google_map_utils.GoogleAPIGetRequestClient
+import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -26,7 +27,8 @@ class DownloadStoreInfoLogic {
         var phoneNumber: String = "",
         var website: String = "",
         var openingHour: String = "",
-        var photo: Bitmap? = null
+        var photo: Bitmap? = null,
+        var latLng: LatLng? = null
     ) {}
 
     // callback that support finding the place id by marker id
@@ -85,6 +87,7 @@ class DownloadStoreInfoLogic {
             val website = storeDetail.optString("website") ?: "" // optional
             val openingHour = parseOpeningHourOfCurrentDay(storeDetail) // optional
             val photoRef = parsePhotoRef(storeDetail) // optional, photo reference to get photo by Google API
+            val latLng = parseStoreLatLng(storeDetail)
 
             // download the store photo
             CoroutineScope(Dispatchers.IO).launch {
@@ -105,7 +108,8 @@ class DownloadStoreInfoLogic {
                             phoneNumber,
                             website,
                             openingHour,
-                            photo
+                            photo,
+                            latLng
                         )
                     )
                 }
@@ -205,5 +209,15 @@ class DownloadStoreInfoLogic {
             photos.getJSONObject(0)
                 .getString("photo_reference")
         }
+    }
+
+    /**
+     * parse the latLng of the store
+     */
+    private fun parseStoreLatLng(storeDetail: JSONObject): LatLng {
+        val location = storeDetail.getJSONObject("geometry")
+            .getJSONObject("location")
+
+        return LatLng(location.getDouble("lat"), location.getDouble("lng"))
     }
 }
