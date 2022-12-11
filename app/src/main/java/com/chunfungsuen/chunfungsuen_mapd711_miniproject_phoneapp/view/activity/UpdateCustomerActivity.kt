@@ -97,6 +97,11 @@ class UpdateCustomerActivity : AppCompatActivity() {
         updatedCustomer.City = findViewById<EditText>(R.id.city).text.toString()
         updatedCustomer.Country = findViewById<EditText>(R.id.country).text.toString()
         updatedCustomer.PostalCode = findViewById<EditText>(R.id.postal_code).text.toString()
+        updatedCustomer.Telephone = findViewById<EditText>(R.id.phone).text.toString()
+        updatedCustomer.CreditCardNo = findViewById<EditText>(R.id.credit_card_no).text.toString()
+        updatedCustomer.CardType = findViewById<EditText>(R.id.card_type).text.toString()
+        updatedCustomer.CardExpiration = findViewById<EditText>(R.id.card_expiration).text.toString()
+        updatedCustomer.CreditCardCVC = findViewById<EditText>(R.id.credit_card_CVC).text.toString()
         // save the update to repository
         customerViewModel.updateCustomer(updatedCustomer, {
             Toast.makeText(this@UpdateCustomerActivity, "Customer information updated!", Toast.LENGTH_SHORT)

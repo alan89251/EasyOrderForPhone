@@ -40,7 +40,7 @@ data class CustomerModel(
     var CardType: String,
 
     @ColumnInfo(name = "cardExpiration")
-    var cardExpiration: String,
+    var CardExpiration: String,
 
     @ColumnInfo(name = "creditCardCVC")
     var CreditCardCVC: String

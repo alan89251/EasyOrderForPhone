@@ -13,6 +13,12 @@ class OrderModel (
     @ColumnInfo(name = "productId")
     var ProductId: Int,
 
+    @ColumnInfo(name = "colour")
+    var Colour: String,
+
+    @ColumnInfo(name = "storageCapacity")
+    var StorageCapacity: String,
+
     @ColumnInfo(name = "orderDate")
     var OrderDate: String,
 

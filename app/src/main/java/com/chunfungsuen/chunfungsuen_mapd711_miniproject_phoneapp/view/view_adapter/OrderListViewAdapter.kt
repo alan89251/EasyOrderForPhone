@@ -52,8 +52,8 @@ class OrderListViewAdapter (
         getProductByIdAsync(order.ProductId, {
             itemView.findViewById<TextView>(R.id.order_list_item_phone_model).text = it.PhoneModel
             itemView.findViewById<TextView>(R.id.order_list_item_phone_make).text = it.PhoneMake
-            itemView.findViewById<TextView>(R.id.order_list_item_phone_color).text = it.PhoneColor
-            itemView.findViewById<TextView>(R.id.order_list_item_storage_capacity).text = it.StorageCapacity
+            itemView.findViewById<TextView>(R.id.order_list_item_phone_color).text = order.Colour
+            itemView.findViewById<TextView>(R.id.order_list_item_storage_capacity).text = order.StorageCapacity
             itemView.findViewById<TextView>(R.id.order_list_item_price).text = "$" + it.Price.toString()
         })
 

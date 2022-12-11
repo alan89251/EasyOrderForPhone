@@ -205,21 +205,37 @@ class OrderActivity : AppCompatActivity() {
                     .show()
                 return@setOnClickListener
             }
+            val storageCapacityRadioGroup = findViewById<RadioGroup>(R.id.storage_capacity_radio_group)
+            // remind the customer to select a storage if he/she doesn't select one
+            if (storageCapacityRadioGroup.checkedRadioButtonId == -1) {
+                Toast.makeText(this@OrderActivity, "Please select a storage capacity", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            val selectedStorageCapacity = findViewById<RadioButton>(storageCapacityRadioGroup.checkedRadioButtonId).text.toString()
+            val colourSpinnerSelectedView = findViewById<Spinner>(R.id.color_spinner).selectedView as TextView
+            val selectedColour = colourSpinnerSelectedView.text.toString()
 
             // First, get the customer id from repository by user name. Then, save order to repository
             customerViewModel.customer!!.observe(this, Observer {
+                // fill the order
+
+
                 val order = OrderModel(
                     it.CustId!!,
                     selectedProduct.ProductId!!,
+                    selectedColour,
+                    selectedStorageCapacity,
                     orderDateStr,
-                    resources.getString(R.string.order_status_text_ordered),
                     "",
-                    ""
+                    "",
+                    resources.getString(R.string.order_status_text_ordered)
                 )
 
                 // Navigate to map activity for selecting the phone store
                 val intent = Intent(this@OrderActivity, MapsActivity::class.java)
                 intent.putExtra("order", order)
+                intent.putExtra("brand", selectedProduct.PhoneMake)
                 startActivity(intent)
             })
         }

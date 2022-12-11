@@ -43,5 +43,6 @@
         style="@style/select_shop_btn_style"
         android:layout_alignParentBottom="true"
         android:text="@string/select_shop_btn_text"
-        android:onClick="onClickBtnSelectShop" />
+        android:onClick="onClickBtnSelectShop"
+        android:visibility="invisible" />
 </RelativeLayout>

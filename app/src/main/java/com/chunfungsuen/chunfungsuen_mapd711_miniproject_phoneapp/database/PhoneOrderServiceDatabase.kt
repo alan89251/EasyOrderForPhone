@@ -26,7 +26,7 @@ import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.sto
         PhoneColourModel::class,
         PhonePriceModel::class
     ),
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class PhoneOrderServiceDatabase : RoomDatabase() {

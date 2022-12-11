@@ -56,6 +56,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onCreate(savedInstanceState)
 
         order = intent.getSerializableExtra("order") as OrderModel
+        selectedBrand = intent.getStringExtra("brand")!!
 
         // init database
         val phoneOrderServiceDatabase = PhoneOrderServiceDatabase.getDatabaseClient(this@MapsActivity)
@@ -291,13 +292,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     /**
      * 1. Display info window of the store
-     * 2. save the current selected store name in memory
+     * 2. Display "select store button"
+     * 3. save the current selected store name in memory
      */
     private fun onDownloadStoreInfoCompleted(storeInfo: DownloadStoreInfoLogic.StoreInfo,
                                              marker: Marker,
                                              infoWindowView: View) {
         showInfoWindow(storeInfo, marker, infoWindowView)
         selectedStore = storeInfo
+        findViewById<Button>(R.id.select_shop_btn).visibility = Button.VISIBLE
     }
 
     /**
