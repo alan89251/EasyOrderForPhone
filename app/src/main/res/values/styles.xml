@@ -290,12 +290,24 @@
         <item name="android:background">@color/filter_btn_bgColor</item>
     </style>
 
+    <style name="product_list_item_right_area_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/product_list_item_right_area_marginLeft</item>
+    </style>
+
     <style name="product_list_item_photo_style">
         <item name="android:layout_width">@dimen/product_list_item_photo_width</item>
         <item name="android:layout_height">@dimen/product_list_item_photo_height</item>
-        <item name="android:layout_marginLeft">@dimen/product_list_item_photo_marginLeft</item>
         <item name="android:scaleType">fitCenter</item>
         <item name="android:background">@color/product_list_item_photo_bgColor</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
+
+    <style name="product_list_item_btn_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_horizontal</item>
     </style>
 
     <style name="info_window_style">

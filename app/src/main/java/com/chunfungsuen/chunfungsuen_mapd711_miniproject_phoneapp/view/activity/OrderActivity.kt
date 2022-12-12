@@ -23,7 +23,9 @@ import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.pro
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.product.ProductRepository
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.storage_capacity.StorageCapacityModel
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.storage_capacity.StorageCapacityRepository
+import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.wish_item.WishItemRepository
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.database.PhoneOrderServiceDatabase
+import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.file_system.WishItemDaoFileSystem
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view.logic.MenuOnSelectHandler
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view.view_adapter.ProductListViewAdapter
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.customer.CustomerViewModel
@@ -38,6 +40,8 @@ import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.pro
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.product.ProductViewModelFactory
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.storage_capacity.StorageCapacityViewModel
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.storage_capacity.StorageCapacityViewModelFactory
+import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.wish_list.WishListViewModel
+import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.wish_list.WishListViewModelFactory
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
@@ -52,6 +56,7 @@ class OrderActivity : AppCompatActivity() {
     private lateinit var phoneColourViewModel: PhoneColourViewModel
     private lateinit var phonePriceViewModel: PhonePriceViewModel
     private lateinit var menuOnSelectHandler: MenuOnSelectHandler
+    private lateinit var wishListViewModel: WishListViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -134,6 +139,18 @@ class OrderActivity : AppCompatActivity() {
             )
         ).get(PhonePriceViewModel::class.java)
 
+        // create view model for wish list
+        wishListViewModel = ViewModelProvider(this,
+            WishListViewModelFactory(
+                WishItemRepository(
+                    WishItemDaoFileSystem(
+                        this,
+                        resources.getString(R.string.wish_list_storage_dir)
+                    )
+                )
+            )
+        ).get(WishListViewModel::class.java)
+
         // loading data from repository
         productViewModel.initProductList()
         productViewModel.productList!!.observe(this, ::updateProductList)
@@ -159,7 +176,20 @@ class OrderActivity : AppCompatActivity() {
     }
 
     private fun updateProductList(productList: List<ProductModel>) {
-        productListView.adapter = ProductListViewAdapter(this, android.R.layout.simple_list_item_1, productList)
+        // Get the customer id from repository by user name
+        customerViewModel.customer!!.observe(this, Observer {
+            // Get the wish list from the repository
+            wishListViewModel.loadWishListByCustomer(it.CustId!!)
+
+            // set product list
+            productListView.adapter = ProductListViewAdapter(
+                { productId -> return@ProductListViewAdapter wishListViewModel.wishList!!.isOnWishList(productId) },
+                { productId -> wishListViewModel.wishList!!.addProduct(productId) },
+                { productId -> wishListViewModel.wishList!!.removeProduct(productId) },
+                this,
+                android.R.layout.simple_list_item_1,
+                productList)
+        })
     }
 
     /**
@@ -284,7 +314,7 @@ class OrderActivity : AppCompatActivity() {
         val colourSpinnerSelectedView = findViewById<Spinner>(R.id.color_spinner).selectedView as TextView
         val selectedColour = colourSpinnerSelectedView.text.toString()
 
-        // First, get the customer id from repository by user name. Then, save order to repository
+        // Get the customer id from repository by user name. Then, save order to repository
         customerViewModel.customer!!.observe(this, Observer {
             // fill the order
             val order = OrderModel(

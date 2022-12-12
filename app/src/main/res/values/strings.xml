@@ -62,4 +62,5 @@
     <string name="select_shop_btn_text">Select</string>
     <string name="wish_list_title_text">Wish List</string>
     <string name="menu_wish_list">Wish List</string>
+    <string name="wish_list_storage_dir">wishList</string>
 </resources>

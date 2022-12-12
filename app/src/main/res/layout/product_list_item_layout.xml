@@ -69,8 +69,17 @@
         </TableRow>
     </TableLayout>
 
-    <ImageView
-        android:id="@+id/product_list_item_photo"
-        style="@style/product_list_item_photo_style"
-        android:layout_toRightOf="@id/product_list_item_table" />
+    <LinearLayout
+        style="@style/product_list_item_right_area_style"
+        android:orientation="vertical"
+        android:layout_toRightOf="@id/product_list_item_table" >
+
+        <ImageView
+            android:id="@+id/product_list_item_photo"
+            style="@style/product_list_item_photo_style" />
+
+        <ImageButton
+            android:id="@+id/product_list_item_btn"
+            style="@style/product_list_item_btn_style" />
+    </LinearLayout>
 </RelativeLayout>

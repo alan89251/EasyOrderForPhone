@@ -7,12 +7,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.R
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.product.ProductModel
 
-class ProductListViewAdapter (context: Context, resource: Int, objects: List<ProductModel>)
+class ProductListViewAdapter (
+    private val isOnWishList: (Int) -> Boolean,
+    private val addToWishList: (Int) -> Unit,
+    private val removeFromWishList: (Int) -> Unit,
+    context: Context,
+    resource: Int,
+    objects: List<ProductModel>)
     : ArrayAdapter<ProductModel>(context, resource, objects)
 {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -36,6 +43,47 @@ class ProductListViewAdapter (context: Context, resource: Int, objects: List<Pro
         itemView.findViewById<TextView>(R.id.product_list_item_price).text = "$" + product!!.Price.toString()
         itemView.findViewById<ImageView>(R.id.product_list_item_photo).setImageBitmap(photo)
 
+        // set button as add to wish list or remove from wish list
+        // depends on whether the item is on the wish list
+        if (isOnWishList(product!!.ProductId!!)) {
+            setButtonAsRemoveFromWishList(
+                product!!.ProductId!!,
+                itemView.findViewById<ImageButton>(R.id.product_list_item_btn)
+            )
+        }
+        else {
+            setButtonAsAddToWishList(
+                product!!.ProductId!!,
+                itemView.findViewById<ImageButton>(R.id.product_list_item_btn)
+            )
+        }
+
         return itemView
+    }
+
+    /**
+     * Set button icon and onClickListener
+     */
+    private fun setButtonAsAddToWishList(productId: Int, button: ImageButton) {
+        button.setImageResource(R.drawable.bookmark)
+        // 1. Add product to wish list
+        // 2. Change the button to "remove from wish list button"
+        button.setOnClickListener {
+            addToWishList(productId)
+            setButtonAsRemoveFromWishList(productId, button)
+        }
+    }
+
+    /**
+     * Set button icon and onClickListener
+     */
+    private fun setButtonAsRemoveFromWishList(productId: Int, button: ImageButton) {
+        button.setImageResource(R.drawable.bookmark_check_fill)
+        // 1. Remove product from wish list
+        // 2. Change the button to "add from wish list button"
+        button.setOnClickListener {
+            removeFromWishList(productId)
+            setButtonAsAddToWishList(productId, button)
+        }
     }
 }
