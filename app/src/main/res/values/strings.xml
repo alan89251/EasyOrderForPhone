@@ -60,4 +60,6 @@
     <string name="phone_order_title_color">Color:</string>
     <string name="phone_order_title_storage_capacity">Storage capacity:</string>
     <string name="select_shop_btn_text">Select</string>
+    <string name="wish_list_title_text">Wish List</string>
+    <string name="menu_wish_list">Wish List</string>
 </resources>

@@ -7,6 +7,7 @@ import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.R
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view.activity.OrderActivity
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view.activity.UpdateCustomerActivity
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view.activity.UpdateOrderActivity
+import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view.activity.WishListActivity
 
 /**
  * Handle the activity navigation of the menu
@@ -28,6 +29,7 @@ class MenuOnSelectHandler(
                 R.id.menu_phone_model_list -> Intent(context, OrderActivity::class.java)
                 R.id.menu_update_order -> Intent(context, UpdateOrderActivity::class.java)
                 R.id.menu_update_customer_info -> Intent(context, UpdateCustomerActivity::class.java)
+                R.id.menu_wish_list -> Intent(context, WishListActivity::class.java)
                 else -> null
             }
         }

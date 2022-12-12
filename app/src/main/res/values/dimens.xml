@@ -53,4 +53,6 @@
     <dimen name="selectShopBtnTextSize">16sp</dimen>
     <dimen name="selectShopBtnMarginBottom">10dp</dimen>
     <dimen name="colorSpinnerTextSize">24sp</dimen>
+    <dimen name="wishListTitleTextSize">28sp</dimen>
+    <dimen name="wishListTitleMarginTop">8dp</dimen>
 </resources>

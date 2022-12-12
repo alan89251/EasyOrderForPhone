@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:title="@string/menu_phone_model_list" android:orderInCategory="1" android:id="@+id/menu_phone_model_list" />
-    <item android:title="@string/menu_update_order" android:orderInCategory="1" android:id="@+id/menu_update_order" />
-    <item android:title="@string/menu_update_customer_info" android:orderInCategory="1" android:id="@+id/menu_update_customer_info" />
+    <item android:title="@string/menu_update_order" android:orderInCategory="2" android:id="@+id/menu_update_order" />
+    <item android:title="@string/menu_update_customer_info" android:orderInCategory="3" android:id="@+id/menu_update_customer_info" />
+    <item android:title="@string/menu_wish_list" android:orderInCategory="4" android:id="@+id/menu_wish_list" />
 </menu>

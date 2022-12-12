@@ -380,4 +380,14 @@
         <item name="android:layout_centerHorizontal">true</item>
         <item name="android:layout_marginBottom">@dimen/selectShopBtnMarginBottom</item>
     </style>
+
+    <style name="wish_list_title_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/wishListTitleTextSize</item>
+        <item name="android:textColor">@color/wishListTitleTextColor</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_marginTop">@dimen/wishListTitleMarginTop</item>
+    </style>
 </resources>

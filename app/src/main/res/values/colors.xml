@@ -43,4 +43,5 @@
     <color name="storageAndColorSelectTitleTextColor">#E64A19</color>
     <color name="selectShopBtnTextColor">#FF000000</color>
     <color name="selectShopBtnBgColor">#2E7D32</color>
+    <color name="wishListTitleTextColor">#D84315</color>
 </resources>
