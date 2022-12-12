@@ -57,70 +57,70 @@ class RegistrationActivity : AppCompatActivity() {
         val creditCardCVC = findViewById<TextView>(R.id.credit_card_CVC).text.toString()
 
         // validations
-        if (newUserName.isEmpty()) {
+        if (!CustomerModel.isValidUserName(newUserName)) {
             Toast.makeText(this@RegistrationActivity, "user name is not valid", Toast.LENGTH_SHORT)
                 .show()
             return
         }
-        if (newPassword.isEmpty()) {
+        if (!CustomerModel.isValidPassword(newPassword)) {
             Toast.makeText(this@RegistrationActivity, "password is not valid", Toast.LENGTH_SHORT)
                 .show()
             return
         }
-        if (firstname.isEmpty()) {
+        if (!CustomerModel.isValidFirstname(firstname)) {
             Toast.makeText(this@RegistrationActivity, "firstname is not valid", Toast.LENGTH_SHORT)
                 .show()
             return
         }
-        if (lastname.isEmpty()) {
+        if (!CustomerModel.isValidLastname(lastname)) {
             Toast.makeText(this@RegistrationActivity, "lastname is not valid", Toast.LENGTH_SHORT)
                 .show()
             return
         }
-        if (address.isEmpty()) {
+        if (!CustomerModel.isValidAddress(address)) {
             Toast.makeText(this@RegistrationActivity, "address is not valid", Toast.LENGTH_SHORT)
                 .show()
             return
         }
-        if (city.isEmpty()) {
+        if (!CustomerModel.isValidCity(city)) {
             Toast.makeText(this@RegistrationActivity, "city is not valid", Toast.LENGTH_SHORT)
                 .show()
             return
         }
-        if (country.isEmpty()) {
+        if (!CustomerModel.isValidCountry(country)) {
             Toast.makeText(this@RegistrationActivity, "country is not valid", Toast.LENGTH_SHORT)
                 .show()
             return
         }
-        if (postalCode.isEmpty()) {
+        if (!CustomerModel.isValidPostalCode(postalCode)) {
             Toast.makeText(this@RegistrationActivity, "postal code is not valid", Toast.LENGTH_SHORT)
                 .show()
             return
         }
-        if (telephone.isEmpty()) {
+        if (!CustomerModel.isValidTelephone(telephone)) {
             Toast.makeText(this@RegistrationActivity, "telephone is not valid", Toast.LENGTH_SHORT)
                 .show()
             return
         }
-        if (creditCardNo.isEmpty()) {
+        if (!CustomerModel.isValidCreditCardNo(creditCardNo)) {
             Toast.makeText(this@RegistrationActivity, "credit card no is not valid", Toast.LENGTH_SHORT)
                 .show()
             return
         }
         // Credit card type should contain alphabet and whitespace only
-        if (!cardType.matches(Regex("[a-zA-Z\\s]+"))) {
+        if (!CustomerModel.isValidCardType(cardType)) {
             Toast.makeText(this@RegistrationActivity, "card type is not valid", Toast.LENGTH_SHORT)
                 .show()
             return
         }
         // Credit card expiration date should either in yyyy/MM/dd, yyyy/M/dd, yyyy/MM/d or yyyy/M/d
-        if (!isCreditCardExpirationValid(cardExpiration)) {
+        if (!CustomerModel.isValidCardExpiration(cardExpiration)) {
             Toast.makeText(this@RegistrationActivity, "card expiration is not valid", Toast.LENGTH_SHORT)
                 .show()
             return
         }
         // Credit card CVV/CVC must be 3 digits
-        if (!creditCardCVC.matches(Regex("[0-9]{3}"))) {
+        if (!CustomerModel.isValidCreditCardCVC(creditCardCVC)) {
             Toast.makeText(this@RegistrationActivity, "credit card CVC is not valid", Toast.LENGTH_SHORT)
                 .show()
             return
@@ -153,39 +153,5 @@ class RegistrationActivity : AppCompatActivity() {
         // Navigate to order activity
         val intent = Intent(this@RegistrationActivity, OrderActivity::class.java)
         startActivity(intent)
-    }
-
-    /**
-     * validate credit card expiration date. Credit card expiration date should either in
-     * yyyy/MM/dd, yyyy/M/dd, yyyy/MM/d or yyyy/M/d
-     * @param dateStr date string of the credit card expiration
-     */
-    private fun isCreditCardExpirationValid(dateStr: String): Boolean {
-        // determine the pattern of the date string
-        val pattern = if (dateStr.matches(Regex("[0-9]{4}/[0-9]{2}/[0-9]{2}"))) {
-            "yyyy/MM/dd"
-        }
-        else if (dateStr.matches(Regex("[0-9]{4}/[0-9]/[0-9]{2}"))) {
-            "yyyy/M/dd"
-        }
-        else if (dateStr.matches(Regex("[0-9]{4}/[0-9]{2}/[0-9]"))){
-            "yyyy/MM/d"
-        }
-        else if (dateStr.matches(Regex("[0-9]{4}/[0-9]/[0-9]"))) {
-            "yyyy/M/d"
-        }
-        else {
-            return false
-        }
-
-        // use LocalDate to parse the string. If it throws exception, mean the date format is invalid
-        try {
-            LocalDate.parse(dateStr, DateTimeFormatter.ofPattern(pattern))
-        }
-        catch(e: DateTimeParseException) {
-            return false
-        }
-
-        return true
     }
 }

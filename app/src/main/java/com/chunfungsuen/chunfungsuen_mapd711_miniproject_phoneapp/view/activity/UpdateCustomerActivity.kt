@@ -9,10 +9,12 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.R
+import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.customer.CustomerModel
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.customer.CustomerRepository
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.database.PhoneOrderServiceDatabase
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view.logic.MenuOnSelectHandler
@@ -60,6 +62,12 @@ class UpdateCustomerActivity : AppCompatActivity() {
             findViewById<EditText>(R.id.city).setText(it.City)
             findViewById<EditText>(R.id.country).setText(it.Country)
             findViewById<EditText>(R.id.postal_code).setText(it.PostalCode)
+            findViewById<EditText>(R.id.phone).setText(it.Telephone)
+            findViewById<EditText>(R.id.credit_card_no).setText(it.CreditCardNo)
+            findViewById<EditText>(R.id.card_type).setText(it.CardType)
+            findViewById<EditText>(R.id.card_expiration).setText(it.CardExpiration)
+            findViewById<EditText>(R.id.credit_card_CVC).setText(it.CreditCardCVC)
+
             updateCustomerBtn.isEnabled = true
         })
     }
@@ -83,23 +91,95 @@ class UpdateCustomerActivity : AppCompatActivity() {
     }
 
     fun updateCustomerInfo(v: View) {
+        val firstname = findViewById<EditText>(R.id.firstname).text.toString()
+        val lastname = findViewById<EditText>(R.id.lastname).text.toString()
+        val address = findViewById<EditText>(R.id.address).text.toString()
+        val city = findViewById<EditText>(R.id.city).text.toString()
+        val country = findViewById<EditText>(R.id.country).text.toString()
+        val postalCode = findViewById<EditText>(R.id.postal_code).text.toString()
+        val telephone = findViewById<EditText>(R.id.phone).text.toString()
+        val creditCardNo = findViewById<EditText>(R.id.credit_card_no).text.toString()
+        val cardType = findViewById<EditText>(R.id.card_type).text.toString()
+        val cardExpiration = findViewById<EditText>(R.id.card_expiration).text.toString()
+        val creditCardCVC = findViewById<EditText>(R.id.credit_card_CVC).text.toString()
+
+        // validations
+        if (!CustomerModel.isValidFirstname(firstname)) {
+            Toast.makeText(this@UpdateCustomerActivity, "firstname is not valid", Toast.LENGTH_SHORT)
+                .show()
+            return
+        }
+        if (!CustomerModel.isValidLastname(lastname)) {
+            Toast.makeText(this@UpdateCustomerActivity, "lastname is not valid", Toast.LENGTH_SHORT)
+                .show()
+            return
+        }
+        if (!CustomerModel.isValidAddress(address)) {
+            Toast.makeText(this@UpdateCustomerActivity, "address is not valid", Toast.LENGTH_SHORT)
+                .show()
+            return
+        }
+        if (!CustomerModel.isValidCity(city)) {
+            Toast.makeText(this@UpdateCustomerActivity, "city is not valid", Toast.LENGTH_SHORT)
+                .show()
+            return
+        }
+        if (!CustomerModel.isValidCountry(country)) {
+            Toast.makeText(this@UpdateCustomerActivity, "country is not valid", Toast.LENGTH_SHORT)
+                .show()
+            return
+        }
+        if (!CustomerModel.isValidPostalCode(postalCode)) {
+            Toast.makeText(this@UpdateCustomerActivity, "postal code is not valid", Toast.LENGTH_SHORT)
+                .show()
+            return
+        }
+        if (!CustomerModel.isValidTelephone(telephone)) {
+            Toast.makeText(this@UpdateCustomerActivity, "telephone is not valid", Toast.LENGTH_SHORT)
+                .show()
+            return
+        }
+        if (!CustomerModel.isValidCreditCardNo(creditCardNo)) {
+            Toast.makeText(this@UpdateCustomerActivity, "credit card no is not valid", Toast.LENGTH_SHORT)
+                .show()
+            return
+        }
+        // Credit card type should contain alphabet and whitespace only
+        if (!CustomerModel.isValidCardType(cardType)) {
+            Toast.makeText(this@UpdateCustomerActivity, "card type is not valid", Toast.LENGTH_SHORT)
+                .show()
+            return
+        }
+        // Credit card expiration date should either in yyyy/MM/dd, yyyy/M/dd, yyyy/MM/d or yyyy/M/d
+        if (!CustomerModel.isValidCardExpiration(cardExpiration)) {
+            Toast.makeText(this@UpdateCustomerActivity, "card expiration is not valid", Toast.LENGTH_SHORT)
+                .show()
+            return
+        }
+        // Credit card CVV/CVC must be 3 digits
+        if (!CustomerModel.isValidCreditCardCVC(creditCardCVC)) {
+            Toast.makeText(this@UpdateCustomerActivity, "credit card CVC is not valid", Toast.LENGTH_SHORT)
+                .show()
+            return
+        }
+
+        // update the customer info to repository
         val updatedCustomer = customerViewModel.customer!!.value!! // get the current loaded customer info
-        // update the customer info by the values from UIs
         val newPassword = findViewById<EditText>(R.id.new_password).text.toString()
         if (newPassword.isNotEmpty()) {
             updatedCustomer.Password = findViewById<EditText>(R.id.new_password).text.toString()
         }
-        updatedCustomer.Firstname = findViewById<EditText>(R.id.firstname).text.toString()
-        updatedCustomer.Lastname = findViewById<EditText>(R.id.lastname).text.toString()
-        updatedCustomer.Address = findViewById<EditText>(R.id.address).text.toString()
-        updatedCustomer.City = findViewById<EditText>(R.id.city).text.toString()
-        updatedCustomer.Country = findViewById<EditText>(R.id.country).text.toString()
-        updatedCustomer.PostalCode = findViewById<EditText>(R.id.postal_code).text.toString()
-        updatedCustomer.Telephone = findViewById<EditText>(R.id.phone).text.toString()
-        updatedCustomer.CreditCardNo = findViewById<EditText>(R.id.credit_card_no).text.toString()
-        updatedCustomer.CardType = findViewById<EditText>(R.id.card_type).text.toString()
-        updatedCustomer.CardExpiration = findViewById<EditText>(R.id.card_expiration).text.toString()
-        updatedCustomer.CreditCardCVC = findViewById<EditText>(R.id.credit_card_CVC).text.toString()
+        updatedCustomer.Firstname = firstname
+        updatedCustomer.Lastname = lastname
+        updatedCustomer.Address = address
+        updatedCustomer.City = city
+        updatedCustomer.Country = country
+        updatedCustomer.PostalCode = postalCode
+        updatedCustomer.Telephone = telephone
+        updatedCustomer.CreditCardNo = creditCardNo
+        updatedCustomer.CardType = cardType
+        updatedCustomer.CardExpiration = cardExpiration
+        updatedCustomer.CreditCardCVC = creditCardCVC
         // save the update to repository
         customerViewModel.updateCustomer(updatedCustomer, {
             Toast.makeText(this@UpdateCustomerActivity, "Customer information updated!", Toast.LENGTH_SHORT)
