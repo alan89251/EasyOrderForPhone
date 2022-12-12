@@ -3,6 +3,7 @@ package com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.logic
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.google_map_utils.GoogleAPIGetRequestClient
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.google_map_utils.GoogleMapAPIPolylineDecoder
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -11,7 +12,7 @@ import org.json.JSONObject
 import java.net.URL
 
 class DownloadRouteToStoreLogic(
-    private val onResult: (List<LatLng>) -> Unit,
+    private val onResult: (List<LatLng> , LatLngBounds) -> Unit, // args: route, bound
     private val apiUrl: String,
     private val apiKey: String
 ) {
@@ -24,11 +25,23 @@ class DownloadRouteToStoreLogic(
             val response = GoogleAPIGetRequestClient()
                 .sendGetRequest(URL(urlStr))
             val route: List<LatLng> = parseRoute(response)
+            val bound = parseBound(response)
 
             withContext(Dispatchers.Main) {
-                onResult(route)
+                onResult(route, bound)
             }
         }
+    }
+
+    private fun parseBound(responseFromApi: JSONObject): LatLngBounds {
+        val bounds = responseFromApi.getJSONArray("routes")
+            .getJSONObject(0)
+            .getJSONObject("bounds")
+        val northeast = bounds.getJSONObject("northeast")
+        val northeastBound = LatLng(northeast.getDouble("lat"), northeast.getDouble("lng"))
+        val southwest = bounds.getJSONObject("southwest")
+        val southwestBound = LatLng(southwest.getDouble("lat"), southwest.getDouble("lng"))
+        return LatLngBounds(southwestBound, northeastBound)
     }
 
     /**

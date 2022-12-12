@@ -16,15 +16,13 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.CircleOptions
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.gms.maps.model.PolylineOptions
+import com.google.android.gms.maps.model.*
 
 class CheckStoreActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mMap: GoogleMap
     private lateinit var deviceLocation: Location
     private lateinit var storePlaceId: String
+    private lateinit var storeName: String
     private lateinit var menuOnSelectHandler: MenuOnSelectHandler
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,6 +32,7 @@ class CheckStoreActivity : AppCompatActivity(), OnMapReadyCallback {
         menuOnSelectHandler = MenuOnSelectHandler(null, this)
 
         storePlaceId = intent.getStringExtra("storePlaceId")!!
+        storeName = intent.getStringExtra("storeName")!!
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
@@ -77,6 +76,7 @@ class CheckStoreActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap.addMarker(
             MarkerOptions()
                 .position(storeInfo.latLng!!)
+                .title(storeName)
         )
 
         DownloadRouteToStoreLogic(
@@ -90,7 +90,10 @@ class CheckStoreActivity : AppCompatActivity(), OnMapReadyCallback {
     /**
      * Plot the route to the store on the map
      */
-    private fun onReceivedRouteToStore(route: List<LatLng>) {
+    private fun onReceivedRouteToStore(route: List<LatLng>, bound: LatLngBounds) {
+        // move the camera to the bounded area
+        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bound, resources.getInteger(R.integer.paddingOfBoundOfRouteToStore)))
+
         mMap.addPolyline(
             PolylineOptions()
                 .color(resources.getColor(R.color.routeToStoreColor))

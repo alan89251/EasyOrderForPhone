@@ -22,7 +22,7 @@ class OrderListViewAdapter (
     private val getProductByIdAsync: (Int, (ProductModel) -> Unit) -> Unit,
     private val getPriceAsync: (Int, String, (PhonePriceModel) -> Unit) -> Unit,
     private val updateOrder: (OrderModel) -> Unit,
-    private val onCheckStoreBtnClicked: (String) -> Unit,
+    private val onCheckStoreBtnClicked: (String, String) -> Unit, // args: StorePlaceId, StoreName
     context: Context,
     resource: Int,
     objects: List<OrderModel>)
@@ -50,7 +50,7 @@ class OrderListViewAdapter (
         // config check store button
         itemView.findViewById<ImageButton>(R.id.check_store_btn)
             .setOnClickListener {
-                onCheckStoreBtnClicked(order.StorePlaceId)
+                onCheckStoreBtnClicked(order.StorePlaceId, order.StoreName)
             }
         // disable and hide the cancel order button if the order is already cancelled
         if (order.Status == context.resources.getString(R.string.order_status_text_cancelled)) {

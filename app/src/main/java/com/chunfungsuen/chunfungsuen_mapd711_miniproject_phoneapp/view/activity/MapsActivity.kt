@@ -347,7 +347,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     /**
      * Plot the route to the store on the map
      */
-    private fun onReceivedRouteToStore(route: List<LatLng>) {
+    private fun onReceivedRouteToStore(route: List<LatLng>, bound: LatLngBounds) {
         polylineOfRouteToSelectedStore = mMap
             .addPolyline(PolylineOptions()
                 .color(resources.getColor(R.color.routeToStoreColor))

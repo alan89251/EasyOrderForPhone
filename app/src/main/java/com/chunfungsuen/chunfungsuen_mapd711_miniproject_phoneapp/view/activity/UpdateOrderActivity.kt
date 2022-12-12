@@ -166,9 +166,10 @@ class UpdateOrderActivity : AppCompatActivity() {
      * Navigate to Check Store Activity to check the location and the route to the phone store
      * of this order
      */
-    private fun onCheckStoreBtnClicked(storePlaceId: String) {
+    private fun onCheckStoreBtnClicked(storePlaceId: String, storeName: String) {
         val intent = Intent(this@UpdateOrderActivity, CheckStoreActivity::class.java)
         intent.putExtra("storePlaceId", storePlaceId)
+        intent.putExtra("storeName", storeName)
         startActivity(intent)
     }
 }
