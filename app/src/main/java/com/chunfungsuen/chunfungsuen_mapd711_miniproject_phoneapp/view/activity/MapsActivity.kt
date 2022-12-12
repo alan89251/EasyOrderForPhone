@@ -6,6 +6,8 @@ import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
@@ -25,6 +27,7 @@ import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.google_map_uti
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.logic.DownloadRouteToStoreLogic
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.logic.DownloadStoreInfoLogic
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.logic.GetDeviceLocationLogic
+import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view.logic.MenuOnSelectHandler
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view.view_adapter.PhoneStoreInfoWindowAdapter
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.order.OrderViewModel
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.order.OrderViewModelFactory
@@ -47,9 +50,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var order: OrderModel
     private lateinit var deviceLocation: Location
     private var polylineOfRouteToSelectedStore: Polyline? = null
+    private lateinit var menuOnSelectHandler: MenuOnSelectHandler
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        menuOnSelectHandler = MenuOnSelectHandler(null, this)
 
         order = intent.getSerializableExtra("order") as OrderModel
         selectedBrand = intent.getStringExtra("brand")!!
@@ -336,5 +342,23 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun onReceivedRouteToStore(route: List<LatLng>) {
         polylineOfRouteToSelectedStore = mMap.addPolyline(PolylineOptions()
             .addAll(route))
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.phone_order_service_menu, menu)
+        return true
+    }
+
+    /**
+     * Navigate to the activity of the selected menu item
+     * Do nothing if the user select the current activity
+     */
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val intent: Intent? = menuOnSelectHandler.createIntent(item)
+        if (intent != null) {
+            startActivity(intent)
+        }
+
+        return true
     }
 }

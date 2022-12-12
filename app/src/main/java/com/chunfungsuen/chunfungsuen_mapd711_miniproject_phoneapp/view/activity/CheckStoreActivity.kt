@@ -1,13 +1,17 @@
 package com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view.activity
 
+import android.content.Intent
 import android.location.Location
 import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.R
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.logic.DownloadRouteToStoreLogic
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.logic.DownloadStoreInfoLogic
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.logic.GetDeviceLocationLogic
+import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view.logic.MenuOnSelectHandler
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -21,10 +25,13 @@ class CheckStoreActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mMap: GoogleMap
     private lateinit var deviceLocation: Location
     private lateinit var storePlaceId: String
+    private lateinit var menuOnSelectHandler: MenuOnSelectHandler
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_check_store)
+
+        menuOnSelectHandler = MenuOnSelectHandler(null, this)
 
         storePlaceId = intent.getStringExtra("storePlaceId")!!
 
@@ -102,5 +109,23 @@ class CheckStoreActivity : AppCompatActivity(), OnMapReadyCallback {
                 .radius(30.0)
                 .fillColor(resources.getColor(R.color.locationIndicatorFillColor))
                 .strokeColor(resources.getColor(R.color.locationIndicatorStrokeColor)))
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.phone_order_service_menu, menu)
+        return true
+    }
+
+    /**
+     * Navigate to the activity of the selected menu item
+     * Do nothing if the user select the current activity
+     */
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val intent: Intent? = menuOnSelectHandler.createIntent(item)
+        if (intent != null) {
+            startActivity(intent)
+        }
+
+        return true
     }
 }
