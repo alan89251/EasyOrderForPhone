@@ -5,10 +5,11 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.TypedValue
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.R
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.order.OrderModel
@@ -20,6 +21,7 @@ import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.pro
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.storage_capacity.StorageCapacityModel
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.storage_capacity.StorageCapacityRepository
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.database.PhoneOrderServiceDatabase
+import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view.logic.MenuOnSelectHandler
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.phone_colour.PhoneColourViewModel
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.phone_colour.PhoneColourViewModelFactory
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.phone_price.PhonePriceViewModel
@@ -33,6 +35,7 @@ import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 
 class OrderFormActivity : AppCompatActivity() {
+    private lateinit var menuOnSelectHandler: MenuOnSelectHandler
     private lateinit var selectedProduct: ProductModel
     private lateinit var storageCapacityViewModel: StorageCapacityViewModel
     private lateinit var phoneColourViewModel: PhoneColourViewModel
@@ -47,6 +50,8 @@ class OrderFormActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_order_form)
+
+        menuOnSelectHandler = MenuOnSelectHandler(null, this)
 
         // read from share preferences
         val sharedPreferences: SharedPreferences = this.getSharedPreferences("phoneOrderServicePreferences", MODE_PRIVATE)
@@ -234,5 +239,23 @@ class OrderFormActivity : AppCompatActivity() {
             android.R.layout.simple_spinner_dropdown_item,
             spinnerContents
         )
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.phone_order_service_menu, menu)
+        return true
+    }
+
+    /**
+     * Navigate to the activity of the selected menu item
+     * Do nothing if the user select the current activity
+     */
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val intent: Intent? = menuOnSelectHandler.createIntent(item)
+        if (intent != null) {
+            startActivity(intent)
+        }
+
+        return true
     }
 }

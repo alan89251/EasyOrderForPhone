@@ -27,11 +27,9 @@ class WishListListViewAdapter(
     )
 {
     /**
-     * @param itemView the view of the layout of the list item
-     * @param product the product shown on this list item
+     * Set button icon and onClickListener
      */
-    override fun configButtons(itemView: View, product: ProductModel) {
-        val button = itemView.findViewById<ImageButton>(R.id.product_list_item_wish_list_btn)
+    override fun setButtonAsRemoveFromWishList(product: ProductModel, button: ImageButton) {
         button.setImageResource(R.drawable.bookmark_x_fill)
         button.setOnClickListener {
             // remove the product from the wish list of the customer

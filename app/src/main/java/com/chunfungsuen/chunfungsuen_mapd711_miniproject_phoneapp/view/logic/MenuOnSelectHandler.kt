@@ -13,7 +13,7 @@ import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view.activity.
  * Handle the activity navigation of the menu
  */
 class MenuOnSelectHandler(
-    private val menuItemIdOfCurActivity: Int,
+    private val menuItemIdOfCurActivity: Int?,
     private val context: Context
 ) {
     /**

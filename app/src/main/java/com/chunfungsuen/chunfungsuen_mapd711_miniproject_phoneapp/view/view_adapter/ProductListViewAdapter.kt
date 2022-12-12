@@ -58,13 +58,13 @@ open class ProductListViewAdapter (
         // depends on whether the item is on the wish list
         if (isOnWishList(product.ProductId!!)) {
             setButtonAsRemoveFromWishList(
-                product.ProductId!!,
+                product,
                 itemView.findViewById<ImageButton>(R.id.product_list_item_wish_list_btn)
             )
         }
         else {
             setButtonAsAddToWishList(
-                product.ProductId!!,
+                product,
                 itemView.findViewById<ImageButton>(R.id.product_list_item_wish_list_btn)
             )
         }
@@ -75,33 +75,33 @@ open class ProductListViewAdapter (
     /**
      * Set button icon and onClickListener
      */
-    private fun setButtonAsAddToWishList(productId: Int, button: ImageButton) {
+    protected open fun setButtonAsAddToWishList(product: ProductModel, button: ImageButton) {
         button.setImageResource(R.drawable.bookmark)
         // 1. Add product to wish list
         // 2. Change the button to "remove from wish list button"
         button.setOnClickListener {
-            addToWishList(productId)
-            setButtonAsRemoveFromWishList(productId, button)
+            addToWishList(product.ProductId!!)
+            setButtonAsRemoveFromWishList(product, button)
         }
     }
 
     /**
      * Set button icon and onClickListener
      */
-    private fun setButtonAsRemoveFromWishList(productId: Int, button: ImageButton) {
+    protected open fun setButtonAsRemoveFromWishList(product: ProductModel, button: ImageButton) {
         button.setImageResource(R.drawable.bookmark_check_fill)
         // 1. Remove product from wish list
         // 2. Change the button to "add from wish list button"
         button.setOnClickListener {
-            removeFromWishList(productId)
-            setButtonAsAddToWishList(productId, button)
+            removeFromWishList(product.ProductId!!)
+            setButtonAsAddToWishList(product, button)
         }
     }
 
     /**
      * set the button of selecting the product to buy
      */
-    private fun setSelectBtn(product: ProductModel, button: ImageButton) {
+    protected open fun setSelectBtn(product: ProductModel, button: ImageButton) {
         button.setImageResource(R.drawable.cart_plus)
         button.setOnClickListener {
             onSelect(product)

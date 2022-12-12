@@ -106,13 +106,20 @@ class WishListActivity : AppCompatActivity() {
             { productId -> return@WishListListViewAdapter wishListViewModel.wishList!!.isOnWishList(productId) },
             { productId -> wishListViewModel.wishList!!.addProduct(productId) },
             { productId -> wishListViewModel.wishList!!.removeProduct(productId) },
-            {},
+            ::onProductSelected,
             ::removeProductFromWishListListView,
             this,
             android.R.layout.simple_list_item_1,
             products
         )
         wishListListView.adapter = wishListListViewAdapter
+    }
+
+    private fun onProductSelected(product: ProductModel) {
+        val intent = Intent(this@WishListActivity, OrderFormActivity::class.java)
+        intent.putExtra("customerId", customerViewModel.customer!!.value!!.CustId)
+        intent.putExtra("selectedProductId", product.ProductId)
+        startActivity(intent)
     }
 
     /**
