@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id = "@+id/order_form"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    >
+    tools:context=".view.activity.OrderFormActivity">
 
     <TextView
         style="@style/order_form_description_style"
@@ -88,5 +89,4 @@
         android:id="@+id/move_to_shop_choosing_btn"
         style="@style/move_to_shop_choosing_btn_style"
         android:text="@string/move_to_shop_choosing_btn_text" />
-
 </LinearLayout>
