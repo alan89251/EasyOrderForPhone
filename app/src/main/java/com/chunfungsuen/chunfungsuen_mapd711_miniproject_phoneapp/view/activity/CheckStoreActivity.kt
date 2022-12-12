@@ -93,7 +93,8 @@ class CheckStoreActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun onReceivedRouteToStore(route: List<LatLng>) {
         mMap.addPolyline(
             PolylineOptions()
-            .addAll(route))
+                .color(resources.getColor(R.color.routeToStoreColor))
+                .addAll(route))
     }
 
     /**

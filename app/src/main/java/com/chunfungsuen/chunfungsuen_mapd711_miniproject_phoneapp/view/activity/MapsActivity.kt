@@ -51,6 +51,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var deviceLocation: Location
     private var polylineOfRouteToSelectedStore: Polyline? = null
     private lateinit var menuOnSelectHandler: MenuOnSelectHandler
+    private var markerSelected: Marker? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -101,6 +102,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val infoWindowView = layoutInflater.inflate(R.layout.store_info_window, null)
         val phoneStoreInfoWindowAdapter = PhoneStoreInfoWindowAdapter(infoWindowView)
         mMap.setInfoWindowAdapter(phoneStoreInfoWindowAdapter)
+        mMap.setOnMapClickListener {
+            // remove any existing polyline of route to selected store on the map
+            polylineOfRouteToSelectedStore?.remove()
+            // remove any info windows
+            markerSelected?.hideInfoWindow()
+        }
         setMapOnMarkerClickListener(infoWindowView)
 
         GetDeviceLocationLogic(
@@ -254,6 +261,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
      */
     private fun setMapOnMarkerClickListener(infoWindowView: View) {
         mMap.setOnMarkerClickListener { marker ->
+            markerSelected = marker
             // remove any existing polyline of route to selected store on the map
             polylineOfRouteToSelectedStore?.remove()
 
@@ -340,8 +348,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
      * Plot the route to the store on the map
      */
     private fun onReceivedRouteToStore(route: List<LatLng>) {
-        polylineOfRouteToSelectedStore = mMap.addPolyline(PolylineOptions()
-            .addAll(route))
+        polylineOfRouteToSelectedStore = mMap
+            .addPolyline(PolylineOptions()
+                .color(resources.getColor(R.color.routeToStoreColor))
+                .addAll(route))
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
