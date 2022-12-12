@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "435555508279",
+    "project_id": "androidcourse-366623",
+    "storage_bucket": "androidcourse-366623.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:435555508279:android:7233e2ad662935b7771fb2",
+        "android_client_info": {
+          "package_name": "com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "435555508279-im2iu97372d7vs80bs2e0gioopcetau9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwLDZpdoGZVvc-BQrkSB0JZV_4BzkMUr4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "435555508279-im2iu97372d7vs80bs2e0gioopcetau9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
