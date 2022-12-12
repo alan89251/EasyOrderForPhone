@@ -7,5 +7,5 @@ interface WishItemDao {
      * Truncate all existing wish items for customer
      * Then save the new wish items
      */
-    fun TruncateExistAndSaveWishItemsForCustomer(customerId: Int, wishItems: List<WishItemModel>)
+    fun truncateExistAndSaveWishItemsForCustomer(customerId: Int, wishItems: List<WishItemModel>)
 }

@@ -35,4 +35,8 @@ class ProductViewModel(
     fun getProductById(productId: Int): LiveData<ProductModel>? {
         return productRepository.getProductById(productId)
     }
+
+    fun getProductsByIds(productIds: List<Int>): LiveData<List<ProductModel>>? {
+        return productRepository.getProductsByIds(productIds)
+    }
 }

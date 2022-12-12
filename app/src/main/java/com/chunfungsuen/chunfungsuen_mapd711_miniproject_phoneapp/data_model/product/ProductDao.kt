@@ -10,8 +10,12 @@ interface ProductDao {
     fun getAllProduct(): LiveData<List<ProductModel>>
 
     @Query("SELECT * FROM product WHERE PhoneMake = :phoneMake")
-    fun getProductByPhoneMake(phoneMake: String?): LiveData<List<ProductModel>>
+    fun getProductByPhoneMake(phoneMake: String?): LiveData<List<ProductModel>>?
 
     @Query("SELECT * FROM product WHERE ProductId = :productId")
     fun getProductById(productId: Int): LiveData<ProductModel>?
+
+    @Query("SELECT * FROM product WHERE ProductId IN (:productIds)")
+    fun getProductsByIds(productIds: List<Int>): LiveData<List<ProductModel>>?
+
 }

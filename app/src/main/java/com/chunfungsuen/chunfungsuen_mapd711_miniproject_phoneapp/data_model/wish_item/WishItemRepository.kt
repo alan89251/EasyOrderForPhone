@@ -11,7 +11,7 @@ class WishItemRepository(
      * Truncate all existing wish items for customer
      * Then save the new wish items
      */
-    fun TruncateExistAndSaveWishItemsForCustomer(customerId: Int, wishItems: List<WishItemModel>) {
-        wishItemDao.TruncateExistAndSaveWishItemsForCustomer(customerId, wishItems)
+    fun truncateExistAndSaveWishItemsForCustomer(customerId: Int, wishItems: List<WishItemModel>) {
+        wishItemDao.truncateExistAndSaveWishItemsForCustomer(customerId, wishItems)
     }
 }

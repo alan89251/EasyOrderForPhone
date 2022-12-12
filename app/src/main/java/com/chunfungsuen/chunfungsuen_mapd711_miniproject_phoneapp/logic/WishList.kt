@@ -30,7 +30,7 @@ class WishList {
     fun addProduct(productId: Int) {
         wishListCache.add(WishItemModel(productId)) // save to cache
         // save change to repository
-        wishListRepository.TruncateExistAndSaveWishItemsForCustomer(customerId, wishListCache.toList())
+        wishListRepository.truncateExistAndSaveWishItemsForCustomer(customerId, wishListCache.toList())
     }
 
     fun removeProduct(productId: Int) {
@@ -39,7 +39,7 @@ class WishList {
             it.ProductId == productId
         }
         // save change to repository
-        wishListRepository.TruncateExistAndSaveWishItemsForCustomer(customerId, wishListCache.toList())
+        wishListRepository.truncateExistAndSaveWishItemsForCustomer(customerId, wishListCache.toList())
     }
 
     fun isOnWishList(productId: Int): Boolean {

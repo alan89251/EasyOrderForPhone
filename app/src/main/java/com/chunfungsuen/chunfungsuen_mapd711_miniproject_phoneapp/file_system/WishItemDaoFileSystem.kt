@@ -45,6 +45,11 @@ class WishItemDaoFileSystem: WishItemDao {
             }
             fileContent = buffer.toString()
         }
+
+        if (fileContent.isEmpty()) {
+            return wishItems
+        }
+
         for (line in fileContent.trimEnd('\n')
                 .split("\n")
         ) {
@@ -58,7 +63,7 @@ class WishItemDaoFileSystem: WishItemDao {
      * Truncate all existing wish items for customer
      * Then save the new wish items
      */
-    override fun TruncateExistAndSaveWishItemsForCustomer(
+    override fun truncateExistAndSaveWishItemsForCustomer(
         customerId: Int,
         wishItems: List<WishItemModel>
     ) {

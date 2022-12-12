@@ -13,7 +13,7 @@ import android.widget.TextView
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.R
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.product.ProductModel
 
-class ProductListViewAdapter (
+open class ProductListViewAdapter (
     private val isOnWishList: (Int) -> Boolean,
     private val addToWishList: (Int) -> Unit,
     private val removeFromWishList: (Int) -> Unit,
@@ -43,22 +43,30 @@ class ProductListViewAdapter (
         itemView.findViewById<TextView>(R.id.product_list_item_price).text = "$" + product!!.Price.toString()
         itemView.findViewById<ImageView>(R.id.product_list_item_photo).setImageBitmap(photo)
 
+        configButtons(itemView, product!!)
+
+        return itemView
+    }
+
+    /**
+     * @param itemView the view of the layout of the list item
+     * @param product the product shown on this list item
+     */
+    protected open fun configButtons(itemView: View, product: ProductModel) {
         // set button as add to wish list or remove from wish list
         // depends on whether the item is on the wish list
-        if (isOnWishList(product!!.ProductId!!)) {
+        if (isOnWishList(product.ProductId!!)) {
             setButtonAsRemoveFromWishList(
-                product!!.ProductId!!,
+                product.ProductId!!,
                 itemView.findViewById<ImageButton>(R.id.product_list_item_btn)
             )
         }
         else {
             setButtonAsAddToWishList(
-                product!!.ProductId!!,
+                product.ProductId!!,
                 itemView.findViewById<ImageButton>(R.id.product_list_item_btn)
             )
         }
-
-        return itemView
     }
 
     /**

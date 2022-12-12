@@ -15,4 +15,8 @@ class ProductRepository(private val productDao: ProductDao)
     fun getProductById(productId: Int): LiveData<ProductModel>? {
         return productDao.getProductById(productId)
     }
+
+    fun getProductsByIds(productIds: List<Int>): LiveData<List<ProductModel>>? {
+        return productDao.getProductsByIds(productIds)
+    }
 }
