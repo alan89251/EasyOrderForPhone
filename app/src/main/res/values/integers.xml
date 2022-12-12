@@ -2,4 +2,5 @@
 <resources>
     <integer name="searching_radius_for_stores">2000</integer>
     <integer name="store_photo_max_height">400</integer>
+    <integer name="storageRadioBtnTextSize">20</integer>
 </resources>

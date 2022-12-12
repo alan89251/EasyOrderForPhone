@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -231,7 +232,7 @@ class OrderActivity : AppCompatActivity() {
             ViewGroup.LayoutParams.WRAP_CONTENT,
             ViewGroup.LayoutParams.WRAP_CONTENT)
         radioButton.setTextColor(resources.getColor(R.color.storageRadioBtnTextColor))
-        radioButton.textSize = resources.getDimension(R.dimen.storageRadioBtnTextSize)
+        radioButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, resources.getInteger(R.integer.storageRadioBtnTextSize).toFloat())
         radioButton.text = storageCapacity
         return radioButton
     }
