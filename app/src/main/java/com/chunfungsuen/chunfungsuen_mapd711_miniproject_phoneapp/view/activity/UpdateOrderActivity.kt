@@ -18,6 +18,7 @@ import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.pho
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.product.ProductModel
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.product.ProductRepository
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.database.PhoneOrderServiceDatabase
+import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view.logic.MenuOnSelectHandler
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view.view_adapter.OrderListViewAdapter
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.customer.CustomerViewModel
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.customer.CustomerViewModelFactory
@@ -34,10 +35,13 @@ class UpdateOrderActivity : AppCompatActivity() {
     private lateinit var productViewModel: ProductViewModel
     private lateinit var orderListView: ListView
     private lateinit var phonePriceViewModel: PhonePriceViewModel
+    private lateinit var menuOnSelectHandler: MenuOnSelectHandler
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_update_order)
+
+        menuOnSelectHandler = MenuOnSelectHandler(R.id.menu_update_order, this)
 
         // read from share preferences
         val sharedPreferences: SharedPreferences = this.getSharedPreferences("phoneOrderServicePreferences", MODE_PRIVATE)
@@ -103,15 +107,9 @@ class UpdateOrderActivity : AppCompatActivity() {
      * Do nothing if the user select the current activity
      */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.menu_phone_model_list -> {
-                val intent = Intent(this@UpdateOrderActivity, OrderActivity::class.java)
-                startActivity(intent)
-            }
-            R.id.menu_update_customer_info -> {
-                val intent = Intent(this@UpdateOrderActivity, UpdateCustomerActivity::class.java)
-                startActivity(intent)
-            }
+        val intent: Intent? = menuOnSelectHandler.createIntent(item)
+        if (intent != null) {
+            startActivity(intent)
         }
 
         return true

@@ -15,16 +15,20 @@ import androidx.lifecycle.ViewModelProvider
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.R
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.customer.CustomerRepository
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.database.PhoneOrderServiceDatabase
+import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view.logic.MenuOnSelectHandler
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.customer.CustomerViewModel
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.customer.CustomerViewModelFactory
 
 class UpdateCustomerActivity : AppCompatActivity() {
     private lateinit var customerViewModel: CustomerViewModel
     private lateinit var userName: String
+    private lateinit var menuOnSelectHandler: MenuOnSelectHandler
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_update_customer)
+
+        menuOnSelectHandler = MenuOnSelectHandler(R.id.menu_update_customer_info, this)
 
         // read from share preferences
         val sharedPreferences: SharedPreferences = this.getSharedPreferences("phoneOrderServicePreferences", MODE_PRIVATE)
@@ -70,15 +74,9 @@ class UpdateCustomerActivity : AppCompatActivity() {
      * Do nothing if the user select the current activity
      */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.menu_phone_model_list -> {
-                val intent = Intent(this@UpdateCustomerActivity, OrderActivity::class.java)
-                startActivity(intent)
-            }
-            R.id.menu_update_order -> {
-                val intent = Intent(this@UpdateCustomerActivity, UpdateOrderActivity::class.java)
-                startActivity(intent)
-            }
+        val intent: Intent? = menuOnSelectHandler.createIntent(item)
+        if (intent != null) {
+            startActivity(intent)
         }
 
         return true
