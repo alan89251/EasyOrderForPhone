@@ -17,6 +17,7 @@ open class ProductListViewAdapter (
     private val isOnWishList: (Int) -> Boolean,
     private val addToWishList: (Int) -> Unit,
     private val removeFromWishList: (Int) -> Unit,
+    private val onSelect: (ProductModel) -> Unit, // event handler when the product is selected
     context: Context,
     resource: Int,
     objects: List<ProductModel>)
@@ -53,20 +54,22 @@ open class ProductListViewAdapter (
      * @param product the product shown on this list item
      */
     protected open fun configButtons(itemView: View, product: ProductModel) {
-        // set button as add to wish list or remove from wish list
+        // set wish list button as add to wish list or remove from wish list
         // depends on whether the item is on the wish list
         if (isOnWishList(product.ProductId!!)) {
             setButtonAsRemoveFromWishList(
                 product.ProductId!!,
-                itemView.findViewById<ImageButton>(R.id.product_list_item_btn)
+                itemView.findViewById<ImageButton>(R.id.product_list_item_wish_list_btn)
             )
         }
         else {
             setButtonAsAddToWishList(
                 product.ProductId!!,
-                itemView.findViewById<ImageButton>(R.id.product_list_item_btn)
+                itemView.findViewById<ImageButton>(R.id.product_list_item_wish_list_btn)
             )
         }
+
+        setSelectBtn(product, itemView.findViewById<ImageButton>(R.id.product_list_item_select_btn))
     }
 
     /**
@@ -92,6 +95,16 @@ open class ProductListViewAdapter (
         button.setOnClickListener {
             removeFromWishList(productId)
             setButtonAsAddToWishList(productId, button)
+        }
+    }
+
+    /**
+     * set the button of selecting the product to buy
+     */
+    private fun setSelectBtn(product: ProductModel, button: ImageButton) {
+        button.setImageResource(R.drawable.cart_plus)
+        button.setOnClickListener {
+            onSelect(product)
         }
     }
 }

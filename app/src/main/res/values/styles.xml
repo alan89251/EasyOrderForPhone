@@ -304,10 +304,17 @@
         <item name="android:layout_gravity">center_horizontal</item>
     </style>
 
+    <style name="product_list_item_btn_area_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_marginTop">@dimen/productListItemBtnAreaMarginTop</item>
+    </style>
+
     <style name="product_list_item_btn_style">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_marginHorizontal">@dimen/productListItemBtnMarginHorizontal</item>
     </style>
 
     <style name="info_window_style">

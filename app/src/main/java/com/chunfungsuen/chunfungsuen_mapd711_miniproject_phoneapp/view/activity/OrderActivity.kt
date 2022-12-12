@@ -74,13 +74,13 @@ class OrderActivity : AppCompatActivity() {
             userName
         )
         productListView = findViewById(R.id.phone_model_list)
-        productListView.setOnItemClickListener { parent, _, position, _ ->
+        /*productListView.setOnItemClickListener { parent, _, position, _ ->
             // When user click an item in the product list view,
             // save it as the selected product and change the content view to a short summary
             // and also ask for an order date
             selectedProduct = parent.getItemAtPosition(position) as ProductModel
             showOrderForm()
-        }
+        }*/
 
         // init database
         val phoneOrderServiceDatabase = PhoneOrderServiceDatabase.getDatabaseClient(this@OrderActivity)
@@ -186,10 +186,16 @@ class OrderActivity : AppCompatActivity() {
                 { productId -> return@ProductListViewAdapter wishListViewModel.wishList!!.isOnWishList(productId) },
                 { productId -> wishListViewModel.wishList!!.addProduct(productId) },
                 { productId -> wishListViewModel.wishList!!.removeProduct(productId) },
+                ::onProductSelected,
                 this,
                 android.R.layout.simple_list_item_1,
                 productList)
         })
+    }
+
+    private fun onProductSelected(product: ProductModel) {
+        selectedProduct = product
+        showOrderForm()
     }
 
     /**

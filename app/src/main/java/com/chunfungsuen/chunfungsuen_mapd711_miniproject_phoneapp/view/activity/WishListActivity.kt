@@ -106,6 +106,7 @@ class WishListActivity : AppCompatActivity() {
             { productId -> return@WishListListViewAdapter wishListViewModel.wishList!!.isOnWishList(productId) },
             { productId -> wishListViewModel.wishList!!.addProduct(productId) },
             { productId -> wishListViewModel.wishList!!.removeProduct(productId) },
+            {},
             ::removeProductFromWishListListView,
             this,
             android.R.layout.simple_list_item_1,

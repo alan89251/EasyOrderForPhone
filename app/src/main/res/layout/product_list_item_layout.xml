@@ -77,9 +77,19 @@
         <ImageView
             android:id="@+id/product_list_item_photo"
             style="@style/product_list_item_photo_style" />
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/product_list_item_btn_area_style"
+        android:orientation="horizontal"
+        android:layout_below="@id/product_list_item_table">
 
         <ImageButton
-            android:id="@+id/product_list_item_btn"
+            android:id="@+id/product_list_item_select_btn"
+            style="@style/product_list_item_btn_style" />
+
+        <ImageButton
+            android:id="@+id/product_list_item_wish_list_btn"
             style="@style/product_list_item_btn_style" />
     </LinearLayout>
 </RelativeLayout>

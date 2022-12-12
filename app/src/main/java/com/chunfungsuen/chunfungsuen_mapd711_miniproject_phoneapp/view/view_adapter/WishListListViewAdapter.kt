@@ -10,6 +10,7 @@ class WishListListViewAdapter(
     private val isOnWishList: (Int) -> Boolean,
     private val addToWishList: (Int) -> Unit,
     private val removeFromWishList: (Int) -> Unit,
+    private val onSelect: (ProductModel) -> Unit, // event handler when the product is selected,
     private val onRemoveListItem: (ProductModel) -> Unit, // arg: position
     context: Context,
     resource: Int,
@@ -19,6 +20,7 @@ class WishListListViewAdapter(
         isOnWishList,
         addToWishList,
         removeFromWishList,
+        onSelect,
         context,
         resource,
         objects
@@ -29,7 +31,7 @@ class WishListListViewAdapter(
      * @param product the product shown on this list item
      */
     override fun configButtons(itemView: View, product: ProductModel) {
-        val button = itemView.findViewById<ImageButton>(R.id.product_list_item_btn)
+        val button = itemView.findViewById<ImageButton>(R.id.product_list_item_wish_list_btn)
         button.setImageResource(R.drawable.bookmark_x_fill)
         button.setOnClickListener {
             // remove the product from the wish list of the customer

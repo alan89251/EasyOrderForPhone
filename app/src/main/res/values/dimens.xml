@@ -55,4 +55,6 @@
     <dimen name="colorSpinnerTextSize">24sp</dimen>
     <dimen name="wishListTitleTextSize">28sp</dimen>
     <dimen name="wishListTitleMarginTop">8dp</dimen>
+    <dimen name="productListItemBtnMarginHorizontal">5dp</dimen>
+    <dimen name="productListItemBtnAreaMarginTop">5dp</dimen>
 </resources>
