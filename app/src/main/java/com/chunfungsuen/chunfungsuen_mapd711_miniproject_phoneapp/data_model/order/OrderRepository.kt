@@ -2,6 +2,10 @@ package com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.or
 
 import androidx.lifecycle.LiveData
 
+/**
+ * Group members:
+ * 1. Chun Fung Suen (301277969)
+ */
 class OrderRepository(private val orderDao: OrderDao)
 {
     fun insert(orderModel: OrderModel) {

@@ -10,6 +10,10 @@ import java.io.File
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 
+/**
+ * Group members:
+ * 1. Chun Fung Suen (301277969)
+ */
 class WishItemDaoFileSystem: WishItemDao {
     private val context: Context
     private val storageDir: String // directory to store the wish lists

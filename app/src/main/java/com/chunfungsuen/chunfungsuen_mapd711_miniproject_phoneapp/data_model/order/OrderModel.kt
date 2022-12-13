@@ -5,6 +5,10 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.io.Serializable
 
+/**
+ * Group members:
+ * 1. Chun Fung Suen (301277969)
+ */
 @Entity(tableName = "order")
 class OrderModel (
     @ColumnInfo(name = "custId")

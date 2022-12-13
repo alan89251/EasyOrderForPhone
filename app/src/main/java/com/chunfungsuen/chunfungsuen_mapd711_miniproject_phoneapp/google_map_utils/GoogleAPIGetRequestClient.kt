@@ -7,6 +7,11 @@ import java.net.URL
 import javax.net.ssl.HttpsURLConnection
 
 /**
+ * Group members:
+ * 1. Chun Fung Suen (301277969)
+ */
+
+/**
  * Utility class for performing get request of Google API
  */
 class GoogleAPIGetRequestClient {

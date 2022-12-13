@@ -24,6 +24,10 @@ import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.pro
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.wish_list.WishListViewModel
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.wish_list.WishListViewModelFactory
 
+/**
+ * Group members:
+ * 1. Chun Fung Suen (301277969)
+ */
 class WishListActivity : AppCompatActivity() {
     private lateinit var menuOnSelectHandler: MenuOnSelectHandler
     private lateinit var customerViewModel: CustomerViewModel

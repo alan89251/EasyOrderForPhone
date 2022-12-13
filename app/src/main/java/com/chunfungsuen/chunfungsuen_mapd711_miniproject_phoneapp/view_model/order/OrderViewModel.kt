@@ -10,6 +10,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+/**
+ * Group members:
+ * 1. Chun Fung Suen (301277969)
+ */
 class OrderViewModel(
     // dependency injection of orderRepository
     private val orderRepository: OrderRepository

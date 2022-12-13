@@ -5,6 +5,10 @@ import androidx.lifecycle.ViewModel
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.storage_capacity.StorageCapacityModel
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.storage_capacity.StorageCapacityRepository
 
+/**
+ * Group members:
+ * 1. Chun Fung Suen (301277969)
+ */
 class StorageCapacityViewModel(
     // dependency injection of StorageCapacityRepository
     private val storageCapacityRepository: StorageCapacityRepository

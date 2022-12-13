@@ -9,6 +9,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+/**
+ * Group members:
+ * 1. Chun Fung Suen (301277969)
+ */
 class CustomerViewModel(
     // dependency injection of customerRepository
     private val customerRepository: CustomerRepository

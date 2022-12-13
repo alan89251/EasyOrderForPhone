@@ -20,6 +20,10 @@ import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view.logic.Men
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.customer.CustomerViewModel
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.customer.CustomerViewModelFactory
 
+/**
+ * Group members:
+ * 1. Chun Fung Suen (301277969)
+ */
 class UpdateCustomerActivity : AppCompatActivity() {
     private lateinit var customerViewModel: CustomerViewModel
     private lateinit var userName: String

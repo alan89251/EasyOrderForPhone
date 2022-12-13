@@ -7,6 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.R
 
+/**
+ * Group members:
+ * 1. Chun Fung Suen (301277969)
+ */
 class CustomerInfoFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

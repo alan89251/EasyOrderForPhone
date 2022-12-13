@@ -18,6 +18,10 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 
+/**
+ * Group members:
+ * 1. Chun Fung Suen (301277969)
+ */
 class CheckStoreActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mMap: GoogleMap
     private lateinit var deviceLocation: Location

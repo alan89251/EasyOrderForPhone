@@ -2,6 +2,10 @@ package com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.google_map_ut
 
 import com.google.android.gms.maps.model.LatLng
 
+/**
+ * Group members:
+ * 1. Chun Fung Suen (301277969)
+ */
 class GoogleMapAPIPolylineDecoder {
     /**
      * decode LatLng pairs from string

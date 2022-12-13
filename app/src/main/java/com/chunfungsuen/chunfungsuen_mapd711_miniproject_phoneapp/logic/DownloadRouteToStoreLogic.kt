@@ -11,6 +11,10 @@ import kotlinx.coroutines.withContext
 import org.json.JSONObject
 import java.net.URL
 
+/**
+ * Group members:
+ * 1. Chun Fung Suen (301277969)
+ */
 class DownloadRouteToStoreLogic(
     private val onResult: (List<LatLng> , LatLngBounds) -> Unit, // args: route, bound
     private val apiUrl: String,

@@ -17,6 +17,11 @@ import java.time.LocalTime
 import java.time.format.DateTimeFormatterBuilder
 
 /**
+ * Group members:
+ * 1. Chun Fung Suen (301277969)
+ */
+
+/**
  * Display info window of phone store
  */
 class DownloadStoreInfoLogic {

@@ -34,6 +34,10 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 
+/**
+ * Group members:
+ * 1. Chun Fung Suen (301277969)
+ */
 class OrderFormActivity : AppCompatActivity() {
     private lateinit var menuOnSelectHandler: MenuOnSelectHandler
     private lateinit var selectedProduct: ProductModel

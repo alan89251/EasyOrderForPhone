@@ -40,6 +40,10 @@ import org.json.JSONException
 import org.json.JSONObject
 import java.net.URL
 
+/**
+ * Group members:
+ * 1. Chun Fung Suen (301277969)
+ */
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding

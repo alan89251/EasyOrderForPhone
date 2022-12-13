@@ -17,6 +17,10 @@ import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.pro
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatterBuilder
 
+/**
+ * Group members:
+ * 1. Chun Fung Suen (301277969)
+ */
 class OrderListViewAdapter (
     private val customer: CustomerModel,
     private val getProductByIdAsync: (Int, (ProductModel) -> Unit) -> Unit,

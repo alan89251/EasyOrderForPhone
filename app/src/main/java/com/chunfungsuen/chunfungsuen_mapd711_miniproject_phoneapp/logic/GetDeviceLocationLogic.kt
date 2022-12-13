@@ -8,6 +8,10 @@ import android.location.LocationListener
 import android.location.LocationManager
 import androidx.core.app.ActivityCompat
 
+/**
+ * Group members:
+ * 1. Chun Fung Suen (301277969)
+ */
 class GetDeviceLocationLogic(
     private val locationManager: LocationManager,
     private val context: Context

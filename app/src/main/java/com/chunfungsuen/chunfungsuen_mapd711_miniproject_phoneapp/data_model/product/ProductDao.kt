@@ -4,6 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
 
+/**
+ * Group members:
+ * 1. Chun Fung Suen (301277969)
+ */
 @Dao
 interface ProductDao {
     @Query("SELECT * FROM product")

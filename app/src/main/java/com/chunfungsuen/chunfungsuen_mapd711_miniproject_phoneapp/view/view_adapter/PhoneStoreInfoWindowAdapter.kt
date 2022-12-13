@@ -4,6 +4,10 @@ import android.view.View
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.Marker
 
+/**
+ * Group members:
+ * 1. Chun Fung Suen (301277969)
+ */
 class PhoneStoreInfoWindowAdapter : GoogleMap.InfoWindowAdapter {
     private val contentView: View // layout of the info window
 

@@ -7,6 +7,10 @@ import androidx.lifecycle.ViewModel
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.product.ProductModel
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.product.ProductRepository
 
+/**
+ * Group members:
+ * 1. Chun Fung Suen (301277969)
+ */
 class ProductViewModel(
     // dependency injection of productRepository
     private val productRepository: ProductRepository

@@ -4,6 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.wish_item.WishItemRepository
 
+/**
+ * Group members:
+ * 1. Chun Fung Suen (301277969)
+ */
 class WishListViewModelFactory(val wishItemRepository: WishItemRepository)
     : ViewModelProvider.Factory
 {

@@ -16,6 +16,10 @@ import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.database.Phone
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.customer.CustomerViewModel
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view_model.customer.CustomerViewModelFactory
 
+/**
+ * Group members:
+ * 1. Chun Fung Suen (301277969)
+ */
 class RegistrationActivity : AppCompatActivity() {
     private lateinit var customerViewModel: CustomerViewModel
 

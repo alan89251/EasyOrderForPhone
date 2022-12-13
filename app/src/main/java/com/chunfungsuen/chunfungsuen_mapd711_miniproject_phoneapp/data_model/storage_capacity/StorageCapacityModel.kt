@@ -4,6 +4,10 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+/**
+ * Group members:
+ * 1. Chun Fung Suen (301277969)
+ */
 @Entity(tableName = "storage_capacity")
 class StorageCapacityModel(
     @ColumnInfo(name = "product_id")

@@ -17,6 +17,10 @@ import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.pro
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.storage_capacity.StorageCapacityDao
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.storage_capacity.StorageCapacityModel
 
+/**
+ * Group members:
+ * 1. Chun Fung Suen (301277969)
+ */
 @Database(
     entities = arrayOf(
         CustomerModel::class,

@@ -7,6 +7,10 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 
+/**
+ * Group members:
+ * 1. Chun Fung Suen (301277969)
+ */
 @Entity(tableName = "customer")
 data class CustomerModel(
     @ColumnInfo(name = "userName")

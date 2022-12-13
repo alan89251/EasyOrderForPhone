@@ -3,6 +3,10 @@ package com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.cu
 import androidx.lifecycle.LiveData
 import androidx.room.*
 
+/**
+ * Group members:
+ * 1. Chun Fung Suen (301277969)
+ */
 @Dao
 interface CustomerDao {
 

@@ -10,6 +10,11 @@ import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view.activity.
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.view.activity.WishListActivity
 
 /**
+ * Group members:
+ * 1. Chun Fung Suen (301277969)
+ */
+
+/**
  * Handle the activity navigation of the menu
  */
 class MenuOnSelectHandler(
