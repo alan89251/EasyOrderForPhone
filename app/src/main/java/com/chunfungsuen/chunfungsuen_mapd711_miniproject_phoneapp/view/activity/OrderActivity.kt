@@ -11,6 +11,7 @@ import android.widget.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.R
+import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.customer.CustomerModel
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.customer.CustomerRepository
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.order.OrderRepository
 import com.chunfungsuen.chunfungsuen_mapd711_miniproject_phoneapp.data_model.product.ProductModel
@@ -96,10 +97,9 @@ class OrderActivity : AppCompatActivity() {
             )
         ).get(WishListViewModel::class.java)
 
-        // loading data from repository
-        productViewModel.initProductList()
-        productViewModel.productList!!.observe(this, ::updateProductList)
+        // loading customer from repository
         customerViewModel.loadCustomer(userName)
+        customerViewModel.customer!!.observe(this, ::onLoadedCustomer)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -120,22 +120,25 @@ class OrderActivity : AppCompatActivity() {
         return true
     }
 
-    private fun updateProductList(productList: List<ProductModel>) {
-        // Get the customer id from repository by user name
-        customerViewModel.customer!!.observe(this, Observer {
-            // Get the wish list from the repository
-            wishListViewModel.loadWishListByCustomer(it.CustId!!)
+    private fun onLoadedCustomer(customer: CustomerModel) {
+        // loading product list from repository
+        productViewModel.initProductList()
+        productViewModel.productList!!.observe(this, ::updateProductList)
+    }
 
-            // set product list
-            productListView.adapter = ProductListViewAdapter(
-                { productId -> return@ProductListViewAdapter wishListViewModel.wishList!!.isOnWishList(productId) },
-                { productId -> wishListViewModel.wishList!!.addProduct(productId) },
-                { productId -> wishListViewModel.wishList!!.removeProduct(productId) },
-                ::onProductSelected,
-                this,
-                android.R.layout.simple_list_item_1,
-                productList)
-        })
+    private fun updateProductList(productList: List<ProductModel>) {
+        // Get the wish list from the repository
+        wishListViewModel.loadWishListByCustomer(customerViewModel.customer!!.value!!.CustId!!)
+
+        // set product list
+        productListView.adapter = ProductListViewAdapter(
+            { productId -> return@ProductListViewAdapter wishListViewModel.wishList!!.isOnWishList(productId) },
+            { productId -> wishListViewModel.wishList!!.addProduct(productId) },
+            { productId -> wishListViewModel.wishList!!.removeProduct(productId) },
+            ::onProductSelected,
+            this,
+            android.R.layout.simple_list_item_1,
+            productList)
     }
 
     private fun onProductSelected(product: ProductModel) {
