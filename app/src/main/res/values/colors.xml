@@ -45,4 +45,13 @@
     <color name="selectShopBtnBgColor">#2E7D32</color>
     <color name="wishListTitleTextColor">#D84315</color>
     <color name="routeToStoreColor">#B71C1C</color>
+    <color name="mainActivityBgColor">#FFCDD2</color>
+    <color name="loginActivityBgColor">#F8BBD0</color>
+    <color name="registrationActivityBgColor">#E1BEE7</color>
+    <color name="orderActivityBgColor">#D1C4E9</color>
+    <color name="orderFormActivityBgColor">#C5CAE9</color>
+    <color name="wishListActivityBgColor">#BBDEFB</color>
+    <color name="updateCustomerActivityBgColor">#B3E5FC</color>
+    <color name="updateOrderActivityBgColor">#B2EBF2</color>
+    <color name="checkStoreActivityBgColor">#B2DFDB</color>
 </resources>

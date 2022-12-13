@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    style="@style/update_customer_activity_style"
     tools:context=".view.activity.UpdateCustomerActivity">
 
     <TextView

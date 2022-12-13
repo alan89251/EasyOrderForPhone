@@ -409,4 +409,40 @@
         <item name="android:layout_centerHorizontal">true</item>
         <item name="android:layout_marginTop">@dimen/wishListTitleMarginTop</item>
     </style>
+
+    <style name="main_activity_style">
+        <item name="android:background">@color/mainActivityBgColor</item>
+    </style>
+
+    <style name="login_activity_style">
+        <item name="android:background">@color/loginActivityBgColor</item>
+    </style>
+
+    <style name="registration_activity_style">
+        <item name="android:background">@color/registrationActivityBgColor</item>
+    </style>
+
+    <style name="order_activity_style">
+        <item name="android:background">@color/orderActivityBgColor</item>
+    </style>
+
+    <style name="order_form_activity_style">
+        <item name="android:background">@color/orderFormActivityBgColor</item>
+    </style>
+
+    <style name="wish_list_activity_style">
+        <item name="android:background">@color/wishListActivityBgColor</item>
+    </style>
+
+    <style name="update_customer_activity_style">
+        <item name="android:background">@color/updateCustomerActivityBgColor</item>
+    </style>
+
+    <style name="update_order_activity_style">
+        <item name="android:background">@color/updateOrderActivityBgColor</item>
+    </style>
+
+    <style name="check_store_activity_style">
+        <item name="android:background">@color/checkStoreActivityBgColor</item>
+    </style>
 </resources>
