@@ -142,7 +142,7 @@ class OrderFormActivity : AppCompatActivity() {
         // get the price of the phone with the selected storage capacity from the repository
         phonePriceViewModel.priceQueryResult = phonePriceViewModel.getPhonePrice(
             selectedProduct.ProductId!!,
-            (radioGroup.getChildAt(i - 1) as RadioButton).text.toString()
+            radioGroup.findViewById<RadioButton>(i).text.toString()
         )
         phonePriceViewModel.priceQueryResult?.observe(this) {
             phonePriceViewModel.price.value = it.Price
