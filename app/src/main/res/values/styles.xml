@@ -254,11 +254,13 @@
     <style name="cancel_order_btn_style">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:backgroundTint">@color/imageBtnBgColor</item>
     </style>
 
     <style name="check_store_btn_style">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:backgroundTint">@color/imageBtnBgColor</item>
     </style>
 
     <style name="update_customer_info_btn_style">
@@ -315,6 +317,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginHorizontal">@dimen/productListItemBtnMarginHorizontal</item>
+        <item name="android:backgroundTint">@color/imageBtnBgColor</item>
     </style>
 
     <style name="info_window_style">
