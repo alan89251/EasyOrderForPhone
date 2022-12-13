@@ -342,7 +342,7 @@
     <style name="btn_bar_switch_map_type_style">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">@dimen/btnBarSwitchMapTypeMarginTop</item>
+        <item name="android:layout_marginBottom">@dimen/btnBarSwitchMapTypeMarginBottom</item>
         <item name="android:orientation">horizontal</item>
         <item name="android:layout_centerHorizontal">true</item>
     </style>

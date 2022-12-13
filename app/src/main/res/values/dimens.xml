@@ -45,7 +45,7 @@
     <dimen name="infoWindowStorePhotoMarginBottom">10dp</dimen>
     <dimen name="infoWindowStoreDetailMarginLeft">10dp</dimen>
     <dimen name="infoWindowStoreDetailTextSize">18sp</dimen>
-    <dimen name="btnBarSwitchMapTypeMarginTop">20dp</dimen>
+    <dimen name="btnBarSwitchMapTypeMarginBottom">20dp</dimen>
     <dimen name="btnSwitchMapTypeMarginHorizontal">5dp</dimen>
     <dimen name="btnSwitchMapTypeTextSize">16sp</dimen>
     <dimen name="storageRadioBtnTextSize">20sp</dimen>

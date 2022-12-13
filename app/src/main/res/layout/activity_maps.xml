@@ -15,8 +15,17 @@
         android:layout_height="match_parent"
         tools:context=".view.activity.MapsActivity" />
 
+    <Button
+        android:id="@+id/select_shop_btn"
+        style="@style/select_shop_btn_style"
+        android:layout_alignParentBottom="true"
+        android:text="@string/select_shop_btn_text"
+        android:onClick="onClickBtnSelectShop"
+        android:visibility="invisible" />
+
     <RelativeLayout
-        style="@style/btn_bar_switch_map_type_style">
+        style="@style/btn_bar_switch_map_type_style"
+        android:layout_above="@id/select_shop_btn">
         <Button
             android:id="@+id/btn_switch_to_standard"
             style="@style/btn_switch_map_type_style"
@@ -37,12 +46,4 @@
             android:text="@string/switch_to_hybrid_text"
             android:onClick="onClickBtnSwitchToHybrid" />
     </RelativeLayout>
-
-    <Button
-        android:id="@+id/select_shop_btn"
-        style="@style/select_shop_btn_style"
-        android:layout_alignParentBottom="true"
-        android:text="@string/select_shop_btn_text"
-        android:onClick="onClickBtnSelectShop"
-        android:visibility="invisible" />
 </RelativeLayout>
