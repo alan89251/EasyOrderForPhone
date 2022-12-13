@@ -30,7 +30,7 @@
     <color name="move_to_shop_choosing_btn_bg_color">#26C6DA</color>
     <color name="order_list_description_color">#827717</color>
     <color name="order_list_item_title_color">#F4511E</color>
-    <color name="order_list_item_color">#C0CA33</color>
+    <color name="order_list_item_color">#F57C00</color>
     <color name="filter_btn_bgColor">#00FFFFFF</color>
     <color name="product_list_item_photo_bgColor">#00FFFFFF</color>
     <color name="btnSwitchMapTypeEnabledBgColor">#80C8E6C9</color>
