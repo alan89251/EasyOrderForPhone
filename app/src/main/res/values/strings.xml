@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">ChunFungSuen_MAPD711_MiniProject-PhoneApp</string>
     <string name="title_activity_maps">MapsActivity</string>
-    <string name="google_api_key">AIzaSyBlgz0RJlUUzIY5nW5DvxpMAb9CogjcyPk</string>
+    <string name="google_api_key">API_KEY</string>
     <string name="description_text">Welcome! Here you can order the phone of the following brands!</string>
     <string name="apple_brand_name">apple</string>
     <string name="samsung_brand_name">samsung</string>
